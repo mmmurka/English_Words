@@ -18,3 +18,4 @@ person = Person("John", 30)
 
 print('привет немш')
 print('привет mmmurka')
+print('dva gavnoeda')
