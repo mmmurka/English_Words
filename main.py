@@ -16,3 +16,4 @@ class Person:
 
 person = Person("John", 30)
 
+print(person.name)
