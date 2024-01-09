@@ -1,3 +1,17 @@
-#жаль твоя мама не может писать код для тебя : (
-#from pyparsing import column
-#import pandas as pd)
+print("hello world")  # this is a comment
+for i in range(10):
+    print(i)
+
+
+def hello():
+    print("hello")
+
+
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+
+person = Person("John", 30)
+
