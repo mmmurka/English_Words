@@ -21,7 +21,7 @@ def profile(text: str | list):
     builder = ReplyKeyboardBuilder()
 
     if isinstance(text, list):
-        text = [text]
-
-    [builder.button(text=txt) for txt in text]
+        [builder.button(text=txt) for txt in text]
+    elif isinstance(text, str):
+        builder.button(text=text)
     return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
