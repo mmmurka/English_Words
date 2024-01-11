@@ -33,13 +33,13 @@ async def form_age(message: Message, state: FSMContext):
         await state.set_state(Form.sex)
         await message.answer(
             'Теперь давай определимся с полом',
-            reply_markup=profile(['Парень', 'Девушка'])
+            reply_markup=profile(['Парень', 'Негр'])
         )
     else:
         await message.answer('Введи возраст числом')
 
 
-@router.message(Form.sex, F.text.casefold().in_(['парень', 'девушка']))
+@router.message(Form.sex, F.text.casefold().in_(['парень', 'негр']))
 async def form_sex(message: Message, state: FSMContext):
     await state.update_data(sex=message.text)
     await state.set_state(Form.about)
