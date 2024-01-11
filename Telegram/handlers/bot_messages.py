@@ -1,8 +1,8 @@
 from aiogram import Router
 from aiogram.types import Message, FSInputFile
 
-from keyboards import builders, fabrics, inline, reply
-from data.subloader import get_json
+from Telegram.keyboards import builders, fabrics, inline, reply
+from Telegram.data.subloader import get_json
 
 router = Router()
 

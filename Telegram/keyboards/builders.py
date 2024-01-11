@@ -1,5 +1,6 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
+
 def calc_kb():
     items = [
         '1', '2', '3', '/',
@@ -14,6 +15,7 @@ def calc_kb():
     builder.adjust(*[4] * 4)
 
     return builder.as_markup(resize_keyboard=True)
+
 
 def profile(text: str | list):
     builder = ReplyKeyboardBuilder()
