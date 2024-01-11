@@ -7,7 +7,6 @@ import fasteners
 from handlers import bot_messages, user_commands, questionaire
 from callbacks import pagination
 
-
 lock = fasteners.InterProcessLock(lock_path)
 
 
@@ -21,7 +20,6 @@ async def main():
         questionaire.router,
         bot_messages.router
     )
-
 
     with lock:
         await bot.delete_webhook(drop_pending_updates=True)
