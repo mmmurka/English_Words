@@ -1,6 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
-
 main_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
