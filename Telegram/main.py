@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher
 from config import telegram_token, lock_path
 import fasteners
 
-from handlers import bot_messages, user_commands
+from handlers import bot_messages, user_commands, questionaire
 from callbacks import pagination
 
 
@@ -18,6 +18,7 @@ async def main():
     dp.include_routers(
         user_commands.router,
         pagination.router,
+        questionaire.router,
         bot_messages.router
     )
 
