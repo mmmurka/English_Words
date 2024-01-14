@@ -6,6 +6,7 @@ from Telegram.data.subloader import get_json
 
 router = Router()
 
+
 @router.message()
 async def echo(message: Message):
     msg = message.text.lower()

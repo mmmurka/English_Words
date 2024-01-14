@@ -7,6 +7,6 @@ linsk_kb = InlineKeyboardMarkup(
                                  url='https://www.youtube.com/watch?v=zA52uNzx7Y4&ab_channel=malawolf85'),
             InlineKeyboardButton(text="Telegram", url="tg://resolve?domain=mmmurkaa")
         ]
-    ]
-
+    ],
+ resize_keyboard=True
 )

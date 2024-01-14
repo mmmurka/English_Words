@@ -1,5 +1,6 @@
 import asyncio
 
+import logging
 from aiogram import Bot, Dispatcher
 from config import telegram_token, lock_path
 import fasteners
@@ -8,6 +9,7 @@ from handlers import bot_messages, user_commands, questionaire
 from callbacks import pagination
 
 lock = fasteners.InterProcessLock(lock_path)
+logging.basicConfig(level=logging.INFO)
 
 
 async def main():
