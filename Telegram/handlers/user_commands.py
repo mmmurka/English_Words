@@ -11,3 +11,4 @@ router = Router()
 async def start(message: Message):
     await message.answer(f'Hello, {message.from_user.first_name}',
                          reply_markup=reply.main_kb)
+
