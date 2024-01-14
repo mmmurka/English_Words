@@ -37,3 +37,4 @@ async def start(message: Message):
     await asyncio.sleep(0.3)
     await message.answer('Я бот піськін-гризкінь, давай разом вивчати англійську, обери свій варіант',
                          reply_markup=reply.main_kb)
+

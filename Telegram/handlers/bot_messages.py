@@ -23,5 +23,8 @@ async def echo(message: Message):
         await message.answer(f'{smiles[0][0]} <b>{smiles[0][1]}</b>', reply_markup=fabrics.paginator())# в аргументы функции ничего не передается, так как по дефолту там стоит 0
     elif msg == 'назад':
         await message.answer('Вы вернулись в главное меню', reply_markup=reply.main_kb)
+    elif msg == 'ваша мама':
+        await message.answer('Вот ваша мама')
+        await message.answer_photo(cat)
     else:
         await message.answer_photo(cat)
