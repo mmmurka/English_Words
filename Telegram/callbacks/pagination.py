@@ -26,4 +26,4 @@ async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Paginat
             f"{smiles[page][0]} <b>{smiles[page][1]}</b>",
             reply_markup=fabrics.paginator(page)
         )
-    await call.answer('тут текст)')
+    await call.answer()
