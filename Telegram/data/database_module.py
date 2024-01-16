@@ -8,8 +8,8 @@ from sqlalchemy.future import select
 
 
 db_config = {
-    "user": "mmmurka",
-    "password": "12341",
+    "user": "artemartem",
+    "password": "325159799",
     "host": "localhost",
     "database": "englishwords",
 }
@@ -19,6 +19,7 @@ DATABASE_URL = f"postgresql+asyncpg://{db_config['user']}:{db_config['password']
 engine = create_async_engine(DATABASE_URL, echo=True)
 
 Base = sqlalchemy.orm.declarative_base()
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -42,6 +43,3 @@ async def main_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     await create_user(54782134, "Steve Doe")
-
-
-
