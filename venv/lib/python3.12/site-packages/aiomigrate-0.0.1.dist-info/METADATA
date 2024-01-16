@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: aiomigrate
+Version: 0.0.1
+Summary: asyncio raw sql migration tool
+Home-page: https://github.com/RedMadRobot/aiomigrate
+Author: RedMadRobot, LLC
+Author-email: contact-backend@redmadrobot.ru
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Console
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Database
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Description-Content-Type: text/markdown
+
+# aiomigrate
+
+asyncio raw sql migration tool
+
+[![Coverage](https://codecov.io/gh/RedMadRobot/aiomigrate/branch/master/graph/badge.svg)](https://codecov.io/gh/RedMadRobot/aiomigrate)
+[![pypi](https://img.shields.io/pypi/v/aiomigrate)](https://pypi.python.org/pypi/aiomigrate)
+
+

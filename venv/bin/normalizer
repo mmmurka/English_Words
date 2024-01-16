@@ -1,4 +1,4 @@
-#!/Users/artemartem/Documents/GitHub/English_Words/venv/bin/python
+#!/Users/mmmurka/PycharmProjects/Bot_Telegram_EnglishWords/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys

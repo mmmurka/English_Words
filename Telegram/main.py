@@ -9,7 +9,7 @@ from handlers import bot_messages, user_commands, questionaire
 from callbacks import pagination
 
 lock = fasteners.InterProcessLock(lock_path)
-#logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 
 async def main():
