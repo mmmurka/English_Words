@@ -20,6 +20,7 @@ engine = create_async_engine(DATABASE_URL, echo=True)
 
 Base = sqlalchemy.orm.declarative_base()
 
+
 class User(Base):
     __tablename__ = 'users'
 
@@ -42,8 +43,3 @@ async def main_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     await create_user(54782134, "Steve Doe")
-
-
-
-if __name__ == "__main__":
-    asyncio.run(main_db())
