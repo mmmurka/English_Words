@@ -43,3 +43,5 @@ async def main_db():
         await conn.run_sync(Base.metadata.create_all)
     await create_user(54782134, "Steve Doe")
 
+
+
