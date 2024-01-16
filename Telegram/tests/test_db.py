@@ -6,6 +6,7 @@ from Telegram.data.database_module import Base, User, engine, create_user
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
+
 @pytest.fixture
 async def setup_database():
     logging.debug("Setting up database")
@@ -16,24 +17,20 @@ async def setup_database():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
 
+
 @pytest.mark.asyncio
 async def test_create_user(setup_database):
-    tg_user_id = 4213456
-    name = "Jojo Doe"
+    tg_user_id = 15986392
+    name = "Art Nemsk"
 
-    try:
-        logging.debug("Creating user")
-        await create_user(tg_user_id, name)
+    logging.debug("Creating user")
+    await create_user(tg_user_id, name)
 
-        logging.debug("Querying user from the database")
-        async with engine.begin() as conn:
-            result = await conn.execute(select(User).where(User.id == tg_user_id))
-            user = await result.fetchone()
+    logging.debug("Querying user from the database")
+    async with engine.begin() as conn:
+        result = await conn.execute(select(User).where(User.id == tg_user_id))
+        user = result.fetchone()
 
-        logging.debug("Checking assertions")
-        assert user is not None
-        assert user.name == name
-
-    except Exception as e:
-        logging.error(f"An error occurred: {e}")
-        raise
+    logging.debug("Checking assertions")
+    assert user is not None, "User not found in the database"
+    assert user.name == name, f"Expected user name to be '{name}', but got '{user.name}'"

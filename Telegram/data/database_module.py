@@ -8,8 +8,8 @@ from sqlalchemy.future import select
 
 
 db_config = {
-    "user": "mmmurka",
-    "password": "12341",
+    "user": "artemartem",
+    "password": "325159799",
     "host": "localhost",
     "database": "englishwords",
 }
@@ -45,3 +45,5 @@ async def main_db():
 
 
 
+if __name__ == "__main__":
+    asyncio.run(main_db())
