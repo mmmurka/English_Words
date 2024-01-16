@@ -21,7 +21,7 @@ async def setup_database():
 @pytest.mark.asyncio
 async def test_create_user(setup_database):
     tg_user_id = 1598693922
-    name = "Art Nemsk"
+    name = "Art wNemsk"
 
     logging.debug("Creating user")
     await create_user(tg_user_id, name)
