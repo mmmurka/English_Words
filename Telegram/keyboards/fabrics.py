@@ -16,3 +16,18 @@ def paginator(page: int = 0):
         width=2
     )
     return builder.as_markup()
+
+
+def greeting():
+    builder = InlineKeyboardBuilder()
+    builder.row(
+       InlineKeyboardButton(text='Теми', callback_data='topics'),
+       InlineKeyboardButton(text='Розробники', callback_data='devs'),
+       InlineKeyboardButton(text='Про бота', callback_data='bot_info'),
+       InlineKeyboardButton(text='Підримка', callback_data='support'),
+       width=2
+    )
+    return builder.as_markup()
+
+
+

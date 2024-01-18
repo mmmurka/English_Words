@@ -13,8 +13,8 @@ async def echo(message: Message):
     smiles = await get_json('smiles.json')
     cat = FSInputFile("2024-01-11 19.07.16.jpg")
 
-    if msg == 'ссылки':
-        await message.answer('Вот ваши ссылки:', reply_markup=inline.linsk_kb)
+    if msg == 'автори':
+        await message.answer('Розробники бота:', reply_markup=inline.linsk_kb)
     elif msg == 'спец кнопки':
         await message.answer("Вот спец кнопки", reply_markup=reply.spec_kb)
     elif msg == 'калькулятор':
