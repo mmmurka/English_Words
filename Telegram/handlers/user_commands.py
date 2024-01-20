@@ -1,12 +1,12 @@
 import asyncio
 
-from aiogram import Router
+from aiogram import Router, F
 from aiogram.types import Message, FSInputFile
 from aiogram.filters import CommandStart
 from sqlalchemy.future import select
 
 
-from Telegram.keyboards import reply
+from Telegram.keyboards import reply, inline, fabrics
 from Telegram.data import database_module as db
 
 router = Router()
@@ -24,17 +24,19 @@ async def start(message: Message):
         existing_user = result.scalar()
 
         if existing_user:
-            await message.reply("User already exists in the database.")
+            print(f'User {name} already exists in the database.')
+
         else:
             await db.create_user(tg_user_id, name)
-            await message.reply(f"User {name} with ID {tg_user_id} added to the database.")
+            print(f'User {name} with ID {tg_user_id} added to the database.')
 
 
-    cat = FSInputFile("cat.jpg")
-    await message.answer(f'{message.from_user.first_name}, {message.from_user.id}, привітики')
-    await asyncio.sleep(0.5)
-    await message.answer_photo(cat)
-    await asyncio.sleep(0.3)
-    await message.answer('Я бот піськін-гризкінь, давай разом вивчати англійську, обери свій варіант',
-                         reply_markup=reply.main_kb)
+
+
+    await message.answer(
+        f'{name}, привітики!🙈\n\nДавай вивчати англійську разом 🇬🇧\n\n'
+        f'Ти можеш обрати розділ з необхідними темами, або вивчати нові слова на своєму рівні\n\n\n'
+        f'Keep going! \n\n'
+        f'⬇️Обери необхідний пункт нижче⬇️\n',
+                         reply_markup=fabrics.greeting())
 
