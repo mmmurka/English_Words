@@ -15,6 +15,8 @@ async def echo(message: Message):
 
     if msg == 'автори':
         await message.answer('Розробники бота:', reply_markup=inline.linsk_kb)
+    if msg == 'слава україні':
+        await message.answer('Героям Слава! 🇺🇦')
     elif msg == 'спец кнопки':
         await message.answer("Вот спец кнопки", reply_markup=reply.spec_kb)
     elif msg == 'калькулятор':
