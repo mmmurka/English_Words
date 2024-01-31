@@ -9,8 +9,6 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from typing import Any, Dict
 
-from aiogram.filters import Command
-
 
 router = Router()
 
