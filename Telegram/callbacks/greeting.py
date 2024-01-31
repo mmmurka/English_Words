@@ -7,7 +7,6 @@ from Telegram.translate.translateAPI import trans_text
 from Telegram.utils.states import Form
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from typing import Any, Dict
 
 
 router = Router()
