@@ -1,6 +1,5 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-
 linsk_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
@@ -26,13 +25,40 @@ back_kb = InlineKeyboardMarkup(
     resize_keyboard=True
 )
 
-
 translate_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text='Назад', callback_data='back'),
             InlineKeyboardButton(text='Переклад', callback_data='translate')
         ]
+    ],
+    resize_keyboard=True
+)
+
+topics_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='#', callback_data='topics'),
+
+        ],
+        [
+            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='#', callback_data='topics'),
+        ],
+        [
+
+            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='#', callback_data='topics'),
+        ],
+        [
+            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='#', callback_data='topics'),
+        ],
+        [
+            InlineKeyboardButton(text='Назад', callback_data='back'),
+        ]
+
     ],
     resize_keyboard=True
 )

@@ -21,13 +21,10 @@ def paginator(page: int = 0):
 def greeting():
     builder = InlineKeyboardBuilder()
     builder.row(
-       InlineKeyboardButton(text='Теми', callback_data='topics'),
-       InlineKeyboardButton(text='Розробники', callback_data='devs'),
-       InlineKeyboardButton(text='Про бота', callback_data='bot_info'),
-       InlineKeyboardButton(text='Перекладач', callback_data='translate'),
-       width=2
+        InlineKeyboardButton(text='Теми', callback_data='topics'),
+        InlineKeyboardButton(text='Розробники', callback_data='devs'),
+        InlineKeyboardButton(text='Про бота', callback_data='bot_info'),
+        InlineKeyboardButton(text='Перекладач', callback_data='translate'),
+        width=2
     )
     return builder.as_markup()
-
-
-
