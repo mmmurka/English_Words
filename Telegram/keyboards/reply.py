@@ -11,7 +11,7 @@ main_kb = ReplyKeyboardMarkup(
             KeyboardButton(text='Спец кнопки')
         ]
     ],
-    resize_keyboard=True,
+    resize_keyboard=True, # адаптація клавіатури до розмірів екрану
     one_time_keyboard=True,
     input_field_placeholder='Выберите действие из меню',
     selective=True

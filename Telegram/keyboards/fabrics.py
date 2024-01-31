@@ -24,7 +24,7 @@ def greeting():
        InlineKeyboardButton(text='Теми', callback_data='topics'),
        InlineKeyboardButton(text='Розробники', callback_data='devs'),
        InlineKeyboardButton(text='Про бота', callback_data='bot_info'),
-       InlineKeyboardButton(text='Підримка', callback_data='support'),
+       InlineKeyboardButton(text='Перекладач', callback_data='translate'),
        width=2
     )
     return builder.as_markup()
