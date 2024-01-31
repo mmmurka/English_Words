@@ -25,3 +25,14 @@ back_kb = InlineKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
+
+translate_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Назад', callback_data='back'),
+            InlineKeyboardButton(text='Переклад', callback_data='translate')
+        ]
+    ],
+    resize_keyboard=True
+)

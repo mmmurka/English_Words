@@ -4,6 +4,12 @@ from aiogram import Router, F
 from aiogram.types import CallbackQuery
 from Telegram.keyboards import fabrics, inline
 from Telegram.translate.translateAPI import trans_text
+from Telegram.utils.states import Form
+from aiogram.fsm.context import FSMContext
+from aiogram.types import Message
+from typing import Any, Dict
+
+from aiogram.filters import Command
 
 
 router = Router()
@@ -33,10 +39,15 @@ async def button_back(callback: CallbackQuery):
 
 @router.callback_query(F.data == "topics")
 async def topics(callback: CallbackQuery):
+
     await callback.message.edit_text('Comming soon...            ⠀', reply_markup=inline.back_kb)
 
 
-@router.callback_query(F.data == "support")
-async def support(callback: CallbackQuery):
-    word = await trans_text(text='Hello', src='en', dest='uk')
-    await callback.message.edit_text(f'translate: {word}', reply_markup=inline.back_kb)
+@router.callback_query(F.data == "translate")
+async def support(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(Form.word)
+    await callback.message.edit_text(
+        'Напишіть слово для перекладу ')
+
+
+

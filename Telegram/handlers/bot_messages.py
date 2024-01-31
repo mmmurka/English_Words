@@ -3,6 +3,8 @@ from aiogram.types import Message, FSInputFile
 
 from ..keyboards import builders, fabrics, inline, reply
 from ..data.subloader import get_json
+from Telegram.translate.translateAPI import trans_text
+
 
 router = Router()
 
@@ -19,6 +21,9 @@ async def echo(message: Message):
         await message.answer('Героям Слава! 🇺🇦')
     elif msg == 'спец кнопки':
         await message.answer("Вот спец кнопки", reply_markup=reply.spec_kb)
+
+
+
     elif msg == 'калькулятор':
         await message.answer('Введите выражение:', reply_markup=builders.calc_kb())
     elif msg == 'смайлики':
@@ -29,4 +34,5 @@ async def echo(message: Message):
         await message.answer('Вот ваша мама')
         await message.answer_photo(cat)
     else:
-        await message.answer_photo(cat)
+        pass
+        #await message.answer_photo(cat)
