@@ -38,27 +38,27 @@ translate_kb = InlineKeyboardMarkup(
 topics_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='#', callback_data='topics'),
-            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='English By Level', callback_data='topics'),
+            InlineKeyboardButton(text='Verbs', callback_data='topics'),
 
         ],
         [
-            InlineKeyboardButton(text='#', callback_data='topics'),
-            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='Topic Vocabulary', callback_data='topics'),
+            InlineKeyboardButton(text='Adverbs', callback_data='topics'),
         ],
         [
 
-            InlineKeyboardButton(text='#', callback_data='topics'),
-            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='Collocations', callback_data='topics'),
+            InlineKeyboardButton(text='Adjectives', callback_data='topics'),
         ],
         [
-            InlineKeyboardButton(text='#', callback_data='topics'),
-            InlineKeyboardButton(text='#', callback_data='topics'),
+            InlineKeyboardButton(text='Most Common', callback_data='topics'),
+            InlineKeyboardButton(text='IELTS', callback_data='topics'),
         ],
         [
             InlineKeyboardButton(text='Назад', callback_data='back'),
         ]
 
     ],
-    resize_keyboard=True
+    resize_keyboard=False
 )

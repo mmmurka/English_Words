@@ -39,7 +39,7 @@ async def button_back(callback: CallbackQuery):
 
 @router.callback_query(F.data == "topics")
 async def topics(callback: CallbackQuery):
-    await callback.message.edit_text('Some -------- text', reply_markup=inline.topics_kb)
+    await callback.message.edit_text('Супер!🥳\n\nДавай оберемо розділ для вивчення слів💫', reply_markup=inline.topics_kb)
 
 @router.callback_query(F.data == "translate")
 async def support(callback: CallbackQuery, state: FSMContext) -> None:
