@@ -37,11 +37,21 @@ def profile(text: str | list):
         builder.button(text=text)
     return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
 
-def topic_kb(text: list):
+def topic_kb(topics: list, table: str):
 
     keyboard = InlineKeyboardBuilder()
-    for txt in text:
-        keyboard.button(text=txt, callback_data=txt)
+    for topic in topics:
+        keyboard.button(text=topic, callback_data=f'theme:{table}:{topic}')
+    keyboard.button(text='Назад', callback_data='topics')
+    keyboard.adjust(1)
+
+    return keyboard.as_markup()
+
+def theme_kb(themes: list, table: str):
+
+    keyboard = InlineKeyboardBuilder()
+    for theme in themes:
+        keyboard.button(text=theme, callback_data=f'words:{table}:{theme}')
     keyboard.button(text='Назад', callback_data='topics')
     keyboard.adjust(1)
 

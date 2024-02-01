@@ -44,6 +44,7 @@ def create_table_class(tablename, extend_existing=True):
 
         id = Column(BigInteger, primary_key=True)
         group_subject = Column(String)
+        subject = Column(String)
         word = Column(String)
         definition = Column(String)
 
