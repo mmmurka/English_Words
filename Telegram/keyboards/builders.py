@@ -51,7 +51,7 @@ def theme_kb(themes: list, table: str):
 
     keyboard = InlineKeyboardBuilder()
     for theme in themes:
-        keyboard.button(text=theme, callback_data=f'words:{table}:{theme}')
+        keyboard.button(text=theme, callback_data='words')
     keyboard.button(text='Назад', callback_data='topics')
     keyboard.adjust(1)
 

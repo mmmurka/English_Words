@@ -62,8 +62,8 @@ async def topic(callback: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data.startswith('theme:'))
 async def theme(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
-    theme = button_info[2].split('_')
+    group_subject = button_info[2].split('_')
     table = button_info[1].split('_')
-    themes_list = await theme_from_topic(' '.join(table), ' '.join(theme))
+    themes_list = await theme_from_topic(' '.join(table), ' '.join(group_subject))
     keyboard = theme_kb(themes_list, '_'.join(table))
     await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)

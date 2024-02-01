@@ -29,8 +29,7 @@ async def theme_from_topic(table_name, group_subject):
             unique_values = result.scalars().all()
             values = [i.replace('   ', ' ') for i in unique_values]
             values = sorted(values, key=lambda x: int(search(r'\d+', x).group()))
-            print(values)
             return values
 
 if __name__ == '__main__':
-    asyncio.run(theme_from_topic('topic vocabulary', 'Music'))
+    asyncio.run(theme_from_topic('english by level', 'C1 Level Wordlist'))
