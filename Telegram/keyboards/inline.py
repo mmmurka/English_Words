@@ -38,27 +38,33 @@ translate_kb = InlineKeyboardMarkup(
 topics_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='English By Level', callback_data='topics'),
-            InlineKeyboardButton(text='Verbs', callback_data='topics'),
+            InlineKeyboardButton(text='English By Level', callback_data='topic:english_by_level'),
+            InlineKeyboardButton(text='Verbs', callback_data='topic:verbs'),
+        ],
+        [
+            InlineKeyboardButton(text='Topic Vocabulary', callback_data='topic:topic_vocabulary'),
+            InlineKeyboardButton(text='Adverbs', callback_data='topic:adverbs'),
+        ],
+        [
+            InlineKeyboardButton(text='Collocations', callback_data='topic:collocations'),
+            InlineKeyboardButton(text='Adjectives', callback_data='topic:adjectives'),
+        ],
+        [
+            InlineKeyboardButton(text='Most Common', callback_data='topic:most_common'),
+            InlineKeyboardButton(text='IELTS', callback_data='topic:ielts'),
+        ],
 
-        ],
-        [
-            InlineKeyboardButton(text='Topic Vocabulary', callback_data='topics'),
-            InlineKeyboardButton(text='Adverbs', callback_data='topics'),
-        ],
-        [
-
-            InlineKeyboardButton(text='Collocations', callback_data='topics'),
-            InlineKeyboardButton(text='Adjectives', callback_data='topics'),
-        ],
-        [
-            InlineKeyboardButton(text='Most Common', callback_data='topics'),
-            InlineKeyboardButton(text='IELTS', callback_data='topics'),
-        ],
         [
             InlineKeyboardButton(text='Назад', callback_data='back'),
         ]
 
     ],
     resize_keyboard=True
+)
+topic_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+
+        ]
+    ]
 )

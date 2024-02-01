@@ -1,11 +1,11 @@
 import asyncio
+import enum
 
 import sqlalchemy.orm
 from sqlalchemy import Column, Integer, String, BigInteger
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy import select
 from sqlalchemy.future import select
-
 
 db_config = {
     "user": "artemartem",
@@ -28,7 +28,29 @@ class User(Base):
     name = Column(String)
 
 
-'''func create_user(tg_user_id: int, name: str) -> None:'''
+# class Level(Base):
+#     __tablename__ = 'english by level'
+#
+#     id = Column(BigInteger, primary_key=True)
+#     group_subject = Column(String)
+#     word = Column(String)
+#     definition = Column(String)
+
+
+def create_table_class(tablename, extend_existing=True):
+    class Table(Base):
+        __tablename__ = tablename
+        __table_args__ = {'extend_existing': True}
+
+        id = Column(BigInteger, primary_key=True)
+        group_subject = Column(String)
+        word = Column(String)
+        definition = Column(String)
+
+    # Оставьте метаданные как они есть, они будут использоваться в других файлах
+    # Не изменяйте metadata.tables[tablename] = Table
+
+    return Table
 
 
 async def create_user(tg_user_id: int, name: str):
@@ -43,6 +65,7 @@ async def main_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     await create_user(54782134, "Steve Doe")
+
 
 if __name__ == '__main__':
     asyncio.run(main_db())
