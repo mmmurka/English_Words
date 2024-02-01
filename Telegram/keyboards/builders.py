@@ -1,4 +1,5 @@
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from Telegram.translate.translateAPI import trans_text
 import asyncio
 
@@ -35,3 +36,13 @@ def profile(text: str | list):
     elif isinstance(text, str):
         builder.button(text=text)
     return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
+
+def topic_kb(text: list):
+
+    keyboard = InlineKeyboardBuilder()
+    for txt in text:
+        keyboard.button(text=txt, callback_data=txt)
+    keyboard.button(text='Назад', callback_data='topics')
+    keyboard.adjust(1)
+
+    return keyboard.as_markup()
