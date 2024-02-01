@@ -1,3 +1,5 @@
+import time
+
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from Telegram.translate.translateAPI import trans_text
@@ -47,12 +49,14 @@ def topic_kb(topics: list, table: str):
 
     return keyboard.as_markup()
 
-def theme_kb(themes: list, table: str):
+def theme_kb(themes: list, table: str, group_subject: str):
 
     keyboard = InlineKeyboardBuilder()
     for theme in themes:
-        keyboard.button(text=theme, callback_data=f'words:{table}:{theme}')
-    keyboard.button(text='Назад', callback_data='topics')
+        theme_word = theme.split(' - ')[1]
+        print('_'.join(theme_word.split()))
+        keyboard.button(text=theme, callback_data=f'words:{table}:{'_'.join(theme_word.split())}')
+    keyboard.button(text='Назад', callback_data=f'topic:{table}:{group_subject}')
     keyboard.adjust(1)
 
     return keyboard.as_markup()
