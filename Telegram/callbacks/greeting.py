@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import suppress
 
 from aiogram import Router, F, types
@@ -6,7 +7,7 @@ from Telegram.keyboards import fabrics, inline
 from Telegram.keyboards.builders import topic_kb, theme_kb
 from Telegram.translate.translateAPI import trans_text
 from Telegram.utils.states import Form
-from Telegram.callbacks.topics import topic_from_table, theme_from_topic
+from Telegram.callbacks.topics import topic_from_table, theme_from_topic, words_from_theme
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from typing import Any, Dict
@@ -59,11 +60,25 @@ async def topic(callback: CallbackQuery, state: FSMContext):
     topics_list = await topic_from_table(' '.join(table))
     keyboard = topic_kb(topics_list, '_'.join(table))
     await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)
+
+
 @router.callback_query(F.data.startswith('theme:'))
 async def theme(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
     group_subject = button_info[2].split('_')
     table = button_info[1].split('_')
     themes_list = await theme_from_topic(' '.join(table), ' '.join(group_subject))
-    keyboard = theme_kb(themes_list, '_'.join(table))
+    keyboard = theme_kb(themes_list, '_'.join(table), '_'.join(group_subject))
     await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)
+
+
+@router.callback_query(F.data.startswith('words:'))
+async def words(callback: CallbackQuery, state: FSMContext):
+    button_info = callback.data.split(':')
+    table = button_info[1].split('_')
+    theme = button_info[2].split('_')
+    word_definition = await words_from_theme(' '.join(table), ' '.join(theme))
+    print(word_definition)
+    for key in word_definition:
+        await callback.message.edit_text(f'<b>{key}</b> - {word_definition[key]}' )
+        await  asyncio.sleep(0.5)
