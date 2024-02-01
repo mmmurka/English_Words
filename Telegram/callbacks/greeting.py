@@ -3,10 +3,10 @@ from contextlib import suppress
 from aiogram import Router, F, types
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from Telegram.keyboards import fabrics, inline
-from Telegram.keyboards.builders import topic_kb
+from Telegram.keyboards.builders import topic_kb, theme_kb
 from Telegram.translate.translateAPI import trans_text
 from Telegram.utils.states import Form
-from Telegram.callbacks.topics import topic_from_table
+from Telegram.callbacks.topics import topic_from_table, theme_from_topic
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
@@ -54,5 +54,13 @@ async def topic(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
     table = button_info[1].split('_')
     topics_list = await topic_from_table(' '.join(table))
-    keyboard = topic_kb(topics_list)
+    keyboard = topic_kb(topics_list, '_'.join(table))
+    await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)
+@router.callback_query(F.data.startswith('theme:'))
+async def theme(callback: CallbackQuery, state: FSMContext):
+    button_info = callback.data.split(':')
+    theme = button_info[2].split('_')
+    table = button_info[1].split('_')
+    themes_list = await theme_from_topic(' '.join(table), ' '.join(theme))
+    keyboard = theme_kb(themes_list, '_'.join(table))
     await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)
