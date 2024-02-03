@@ -22,7 +22,7 @@ async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Paginat
         page = page_num + 1 if page_num < (len(buttons) - 1) else page_num
 
     # Создаем экземпляр функции paginator с конкретными значениями db_table и db_theme
-    my_paginator = create_paginator(db_table=' '.join(table), db_theme=' '.join(theme))
+    my_paginator = await create_paginator(db_table=' '.join(table), db_theme=' '.join(theme))
 
     with suppress(TelegramBadRequest):
         await call.message.edit_text(
