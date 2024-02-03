@@ -53,8 +53,8 @@ async def group_from_theme(table_name: str, theme_word: str):
             stmt = select(table.group_subject).distinct().where(table.subject.like(f'%{" ".join(theme)}%')).group_by(table.id)
             group = await session.execute(stmt)
             group = group.scalars().all()
-            # return group
-            print(group)
+            return group
+            # print(group)
 
 if __name__ == '__main__':
     asyncio.run(group_from_theme('most_common',  'Top_201'))

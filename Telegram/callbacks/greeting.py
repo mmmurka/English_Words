@@ -81,5 +81,5 @@ async def words(callback: CallbackQuery, state: FSMContext):
     theme = button_info[2].split('_')
     word_definition = await words_from_theme(' '.join(table), ' '.join(theme))
     group_subject = await group_from_theme(' '.join(table), ' '.join(theme))
-    my_paginator = create_paginator(button_info[1], button_info[2])
+    my_paginator = await create_paginator(button_info[1], button_info[2])
     await callback.message.edit_text(f'{word_definition[0]}', reply_markup=my_paginator(0))
