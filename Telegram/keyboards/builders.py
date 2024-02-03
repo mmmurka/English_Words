@@ -54,8 +54,11 @@ def theme_kb(themes: list, table: str, group_subject: str):
     keyboard = InlineKeyboardBuilder()
     for theme in themes:
         theme_word = theme.split(' - ')[1]
-        print('_'.join(theme_word.split()))
-        keyboard.button(text=theme, callback_data=f'words:{table}:{'_'.join(theme_word.split())}')
+        if len(theme_word) > 20:
+            theme_word = theme_word[:20]
+        print(theme_word)
+        end = '_'.join(theme_word.split())
+        keyboard.button(text=theme, callback_data=f'words:{table}:{end}')
     keyboard.button(text='Назад', callback_data=f'topic:{table}:{group_subject}')
     keyboard.adjust(1)
 
