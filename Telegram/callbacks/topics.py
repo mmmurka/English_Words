@@ -32,7 +32,7 @@ async def theme_from_topic(table_name, group_subject):
 async def words_from_theme(table_name, theme_word):
     async with AsyncSession(db.engine) as session:
         async with session.begin():
-            result = {}
+            result = []
             table = db.create_table_class(table_name)
             stmt = select(table.word).where(table.subject.like(f'%{theme_word}%')).group_by(table.id)
             words = await session.execute(stmt)
@@ -41,8 +41,20 @@ async def words_from_theme(table_name, theme_word):
             definitions = await session.execute(stmt)
             definitions = definitions.scalars().all()
             for i in range(0,len(words)-1):
-                result[words[i]] = definitions[i]
+                result.append((f'{words[i]} - {definitions[i]}'))
             return result
             # print(result)
+async def group_from_theme(table_name: str, theme_word: str):
+    async with AsyncSession(db.engine) as session:
+        async with session.begin():
+            table_s = table_name.split('_')
+            theme = theme_word.split('_')
+            table = db.create_table_class(' '.join(table_s))
+            stmt = select(table.group_subject).distinct().where(table.subject.like(f'%{" ".join(theme)}%')).group_by(table.id)
+            group = await session.execute(stmt)
+            group = group.scalars().all()
+            # return group
+            print(group)
+
 if __name__ == '__main__':
-    asyncio.run(theme_from_topic('collocations',  'Compound Adverbs'))
+    asyncio.run(group_from_theme('most_common',  'Top_201'))
