@@ -61,10 +61,3 @@ topics_kb = InlineKeyboardMarkup(
     ],
     resize_keyboard=True
 )
-topic_kb = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-
-        ]
-    ]
-)

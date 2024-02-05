@@ -8,8 +8,8 @@ from sqlalchemy import select
 from sqlalchemy.future import select
 
 db_config = {
-    "user": "artemartem",
-    "password": "325159799",
+    "user": "mmmurka",
+    "password": "12341",
     "host": "localhost",
     "database": "englishwords",
 }

@@ -28,7 +28,8 @@ async def theme_from_topic(table_name, group_subject):
             values = [i.replace('   ', ' ') for i in unique_values]
             values = sorted(values, key=lambda x: int(search(r'\d+', x).group()))
             return values
-            # print(values)
+
+
 async def words_from_theme(table_name, theme_word):
     async with AsyncSession(db.engine) as session:
         async with session.begin():
@@ -43,7 +44,8 @@ async def words_from_theme(table_name, theme_word):
             for i in range(0,len(words)-1):
                 result.append((f'{words[i]} - {definitions[i]}'))
             return result
-            # print(result)
+
+
 async def group_from_theme(table_name: str, theme_word: str):
     async with AsyncSession(db.engine) as session:
         async with session.begin():
