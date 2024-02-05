@@ -7,10 +7,13 @@ from Telegram.keyboards import fabrics
 from Telegram.data.subloader import get_json
 from Telegram.callbacks.topics import words_from_theme
 from Telegram.keyboards.fabrics import create_paginator
+from Telegram.translate.translateAPI import trans_text
+
+
 router = Router()
 
 
-@router.callback_query(fabrics.Pagination.filter(F.action.in_(["prev", "next"])))
+@router.callback_query(fabrics.Pagination.filter(F.action.in_(["prev", "next", "trans"])))
 async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Pagination):
     table = callback_data.db_table.split('_')
     theme = callback_data.db_theme.split('_')
@@ -30,3 +33,20 @@ async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Paginat
             reply_markup=my_paginator(page)
         )
     await call.answer()
+
+    if callback_data.action == "trans":
+        page = page_num
+        result_translate = await trans_text(text=buttons[page], src='en', dest='uk')
+        with suppress(TelegramBadRequest):
+            await call.message.edit_text(
+                f"{buttons[page]}\n\n\n{result_translate}",
+                reply_markup=my_paginator(page)
+            )
+        await call.answer()
+
+
+
+
+
+
+
