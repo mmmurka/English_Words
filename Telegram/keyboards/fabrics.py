@@ -21,35 +21,24 @@ async def create_paginator(db_table: str, db_theme: str):
             group_subject = group_subject[:15]
 
     def paginator(page: int = 0):
-
-        if db_table != 'most_common':
-            builder = InlineKeyboardBuilder()
-            builder.row(
-                InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, db_table=db_table,
-                                                                         db_theme=db_theme).pack()),
-                InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, db_table=db_table,
-                                                                         db_theme=db_theme).pack()),
-
-                InlineKeyboardButton(text="Назад", callback_data=f'theme:{db_table}:{group_subject}'),
-
-                InlineKeyboardButton(text='🇺🇦', callback_data=Pagination(action="trans", page=page, db_table=db_table,
-                                                                         db_theme=db_theme).pack()),
-                width=2
-            )
+        if db_table == 'most_common' or db_table == 'most common':
+            cb_data = f'topic:{db_table}:{group_subject}'
         else:
-            builder = InlineKeyboardBuilder()
-            builder.row(
-                InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, db_table=db_table,
-                                                                         db_theme=db_theme).pack()),
-                InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, db_table=db_table,
-                                                                         db_theme=db_theme).pack()),
-                InlineKeyboardButton(text="Назад", callback_data=f'topic:{db_table}:{group_subject}'),
+            cb_data = f'theme:{db_table}:{group_subject}'
+        builder = InlineKeyboardBuilder()
+        builder.row(
+            InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, db_table=db_table,
+                                                                     db_theme=db_theme).pack()),
+            InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, db_table=db_table,
+                                                                     db_theme=db_theme).pack()),
+            InlineKeyboardButton(text="Назад", callback_data=cb_data),
 
-                InlineKeyboardButton(text='🇺🇦',
-                                     callback_data=Pagination(action="trans", page=page, db_table=db_table,
-                                                              db_theme=db_theme).pack()),
-                width=2
-            )
+            InlineKeyboardButton(text='🇺🇦',
+                                 callback_data=Pagination(action="trans", page=page, db_table=db_table,
+                                                          db_theme=db_theme).pack()),
+            width=2
+        )
+
         return builder.as_markup()
 
     return paginator

@@ -66,6 +66,7 @@ async def theme(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
     group_subject = button_info[2].split('_')
     table = button_info[1].split('_')
+    print(table, '-------------------')
     themes_list = await theme_from_topic(' '.join(table), ' '.join(group_subject))
     keyboard = theme_kb(themes_list, '_'.join(table), '_'.join(group_subject))
     await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)
