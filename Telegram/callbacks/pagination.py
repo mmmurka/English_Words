@@ -5,8 +5,8 @@ from aiogram.types import CallbackQuery
 from aiogram.exceptions import TelegramBadRequest
 from Telegram.keyboards import fabrics
 from Telegram.data.subloader import get_json
-from Telegram.callbacks.topics import words_from_theme
-from Telegram.keyboards.fabrics import create_paginator
+from Telegram.callbacks.topics import words_from_theme, theme_from_topic
+from Telegram.keyboards.fabrics import create_paginator, create_theme_paginator
 from Telegram.translate.translateAPI import trans_text
 
 
@@ -44,6 +44,27 @@ async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Paginat
             )
         await call.answer()
 
+@router.callback_query(fabrics.ThemePagination.filter(F.action.in_(["prev", "next"])))
+async def theme_pagination_handler(call: CallbackQuery, callback_data: fabrics.Pagination):
+    table = callback_data.db_table
+    group_subject = callback_data.db_group_subject
+    page_num = int(callback_data.page)
+    btns = await theme_from_topic(table, group_subject)
+    buttons = [btns[i:i + 10] for i in range(0, len(btns), 10)]
+    page = page_num - 1 if page_num > 0 else 0
+
+    if callback_data.action == "next":
+        page = page_num + 1 if page_num < (len(buttons) - 1) else page_num
+
+    # Создаем экземпляр функции paginator с конкретными значениями db_table и db_theme
+    my_paginator = await create_theme_paginator(db_table=table, db_group_subject=group_subject)
+
+    with suppress(TelegramBadRequest):
+        await call.message.edit_text(
+        "Оберіть тему",
+            reply_markup=my_paginator(page)
+        )
+    await call.answer()
 
 
 
