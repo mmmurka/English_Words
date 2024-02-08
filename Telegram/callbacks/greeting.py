@@ -57,8 +57,8 @@ async def topic(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
     table = button_info[1].split('_')
     topics_list = await topic_from_table(' '.join(table))
-    keyboard = topic_kb(topics_list, '_'.join(table))
-    await callback.message.edit_text("Выберите тему:", reply_markup=keyboard)
+    my_paginator = await create_theme_paginator(' '.join(table), ' ', 'topic')
+    await callback.message.edit_text("Оберіть тему:", reply_markup=my_paginator(0))
 
 
 @router.callback_query(F.data.startswith('theme:'))
@@ -68,7 +68,7 @@ async def theme(callback: CallbackQuery, state: FSMContext):
     table = button_info[1].split('_')
     # themes_list = await theme_from_topic(' '.join(table), ' '.join(group_subject))
     # keyboard = theme_kb(themes_list, '_'.join(table), '_'.join(group_subject))
-    my_paginator = await create_theme_paginator(' '.join(table), ' '.join(group_subject))
+    my_paginator = await create_theme_paginator(' '.join(table), ' '.join(group_subject), 'theme')
     await callback.message.edit_text("Оберіть тему:", reply_markup=my_paginator(0))
 
 @router.callback_query(F.data.startswith('words:'))
@@ -78,4 +78,4 @@ async def words(callback: CallbackQuery, state: FSMContext):
     theme = button_info[2].split("_")
     word_definition = await words_from_theme(' '.join(table), ' '.join(theme))
     my_paginator = await create_paginator(button_info[1], button_info[2])
-    await callback.message.edit_text(f'{word_definition[0]}', reply_markup=my_paginator(0))
+    await callback.message.edit_text(f'{word_definition[0]}', reply_markup=my_paginator())
