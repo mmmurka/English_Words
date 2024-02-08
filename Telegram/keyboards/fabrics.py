@@ -90,11 +90,12 @@ async def create_theme_paginator(db_table: str, db_group_subject: str, theme_or_
             InlineKeyboardButton(text="⬅️", callback_data=ThemePagination(action="prev", page=page, db_table=db_table,
                                                                           db_group_subject=db_group_subject,
                                                                           theme_or_topic=theme_or_topic).pack()),
+                InlineKeyboardButton(text=f'{page + 1}/{len(themes_list)}', callback_data='non'),
             InlineKeyboardButton(text="➡️", callback_data=ThemePagination(action="next", page=page, db_table=db_table,
                                                                           db_group_subject=db_group_subject,
                                                                           theme_or_topic=theme_or_topic).pack()),
             InlineKeyboardButton(text="Назад", callback_data=cb_back),
-            width=2)
+            width=3)
 
         return builder.as_markup()
 
