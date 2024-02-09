@@ -44,6 +44,7 @@ async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Paginat
             )
         await call.answer()
 
+
 @router.callback_query(fabrics.ThemePagination.filter(F.action.in_(["prev", "next"])))
 async def theme_pagination_handler(call: CallbackQuery, callback_data: fabrics.Pagination):
     theme_or_topic = callback_data.theme_or_topic

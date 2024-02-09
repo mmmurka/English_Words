@@ -28,11 +28,29 @@ back_kb = InlineKeyboardMarkup(
 translate_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='Назад', callback_data='back'),
-            InlineKeyboardButton(text='Переклад', callback_data='translate')
+            InlineKeyboardButton(text='Назад', callback_data='translate'),
+            InlineKeyboardButton(text='Переклад', callback_data='ukraine')
         ]
     ],
     resize_keyboard=True
+)
+translate = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Назад', callback_data='translate'),
+            InlineKeyboardButton(text='Переклад', callback_data='english')
+        ]
+    ],
+    resize_keyboard=True
+)
+
+trans_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='🇺🇦 -> 🇺🇸', callback_data='english'),
+            InlineKeyboardButton(text='🇺🇸 -> 🇺🇦', callback_data='ukraine')
+        ]
+    ]
 )
 
 topics_kb = InlineKeyboardMarkup(

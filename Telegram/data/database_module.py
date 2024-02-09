@@ -8,8 +8,8 @@ from sqlalchemy import select
 from sqlalchemy.future import select
 
 db_config = {
-    "user": "artemartem",
-    "password": "325159799",
+    "user": "mmmurka",
+    "password": "12341",
     "host": "localhost",
     "database": "englishwords",
 }
@@ -65,7 +65,7 @@ async def create_user(tg_user_id: int, name: str):
 async def main_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    await create_user(54782134, "Steve Doe")
+    await create_user(3141592658979, "John Doe")
 
 
 if __name__ == '__main__':
