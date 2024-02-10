@@ -49,6 +49,9 @@ trans_kb = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text='🇺🇦 -> 🇺🇸', callback_data='english'),
             InlineKeyboardButton(text='🇺🇸 -> 🇺🇦', callback_data='ukraine')
+        ],
+        [
+            InlineKeyboardButton(text='Назад', callback_data='back')
         ]
     ]
 )
