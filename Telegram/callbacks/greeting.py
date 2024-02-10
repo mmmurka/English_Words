@@ -5,6 +5,7 @@ from aiogram import Router, F, types
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from Telegram.keyboards import fabrics, inline
 from Telegram.keyboards.builders import topic_kb, theme_kb
+from Telegram.keyboards.inline import trans_kb
 from Telegram.translate.translateAPI import trans_text
 from Telegram.utils.states import Form
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -47,7 +48,19 @@ async def topics(callback: CallbackQuery):
 
 @router.callback_query(F.data == "translate")
 async def support(callback: CallbackQuery, state: FSMContext) -> None:
+    await callback.message.edit_text('Оберіть мову перекладу :)', reply_markup=trans_kb)
+
+
+@router.callback_query(F.data == "ukraine")
+async def ukr_trans(callback: CallbackQuery, state: FSMContext) -> None:
     await state.set_state(Form.word)
+    await callback.message.edit_text(
+        'Напишіть слово для перекладу ')
+
+
+@router.callback_query(F.data == "english")
+async def eng_trans(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(Form.slovo)
     await callback.message.edit_text(
         'Напишіть слово для перекладу ')
 
@@ -70,6 +83,7 @@ async def theme(callback: CallbackQuery, state: FSMContext):
     # keyboard = theme_kb(themes_list, '_'.join(table), '_'.join(group_subject))
     my_paginator = await create_theme_paginator(' '.join(table), ' '.join(group_subject), 'theme')
     await callback.message.edit_text("Оберіть тему:", reply_markup=my_paginator(0))
+
 
 @router.callback_query(F.data.startswith('words:'))
 async def words(callback: CallbackQuery, state: FSMContext):

@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from Telegram.utils.states import Form
 from Telegram.keyboards.builders import profile
 from Telegram.keyboards.inline import translate_kb as tr
+from Telegram.keyboards.inline import translate as tran
 
 from Telegram.translate.translateAPI import trans_text
 
@@ -26,8 +27,17 @@ async def form_name(message: Message, state: FSMContext):
     await message.answer(translation_result, reply_markup=tr)
 
 
+@router.message(Form.slovo)
+async def form_slovo(message: Message, state: FSMContext):
+    await state.update_data(slovo=message.text)
+    data = await state.get_data()
+    await state.clear()
 
+    slovo = data.get('slovo')
 
+    translation_result = await trans_text(text=slovo, src='uk', dest='en')
+
+    await message.answer(translation_result, reply_markup=tran)
 
 
 
