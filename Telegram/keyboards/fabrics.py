@@ -54,7 +54,7 @@ async def create_theme_paginator(db_table: str, db_group_subject: str, theme_or_
     if theme_or_topic == 'theme':
         themes = await theme_from_topic(' '.join(db_table.split('_')), ' '.join(db_group_subject.split('_')))
         themes_list = [themes[i:i + 10] for i in range(0, len(themes), 10)]
-        cb_back = f'topic:{' '.join(db_table.split())}:{' '.join(db_group_subject.split())}'
+        cb_back = f'topic:{" ".join(db_table.split())}:{" ".join(db_group_subject.split())}'
     elif theme_or_topic == 'topic':
         themes = await topic_from_table(' '.join(db_table.split('_')))
         themes_list = [themes[i:i + 10] for i in range(0, len(themes), 10)]
@@ -66,21 +66,21 @@ async def create_theme_paginator(db_table: str, db_group_subject: str, theme_or_
 
             if db_table == 'most_common' or db_table == 'most common':
                 [builder.button(text=theme,
-                                callback_data=f'words:{'_'.join(db_table.split())}:{'_'.join(theme[:28].split())}') for
+                                callback_data=f'words:{"_".join(db_table.split())}:{"_".join(theme[:28].split())}') for
                  theme in themes_list[page]]
             else:
                 [builder.button(text=theme,
-                                callback_data=f'words:{'_'.join(db_table.split())}:{'_'.join(theme[:20].split())}') for
+                                callback_data=f'words:{"_".join(db_table.split())}:{"_".join(theme[:20].split())}') for
                  theme in themes_list[page]]
 
         elif theme_or_topic == 'topic':
             if db_table == 'most_common' or db_table == 'most common':
                 [builder.button(text=theme,
-                                callback_data=f'theme:{'_'.join(db_table.split())}:{'_'.join(theme[:28].split())}') for
+                                callback_data=f'theme:{"_".join(db_table.split())}:{"_".join(theme[:28].split())}') for
                  theme in themes_list[page]]
             else:
                 [builder.button(text=theme,
-                                callback_data=f'theme:{'_'.join(db_table.split())}:{'_'.join(theme[:20].split())}') for
+                                callback_data=f'theme:{"_".join(db_table.split())}:{"_".join(theme[:20].split())}') for
                  theme in themes_list[page]]
 
         builder.adjust(1)
