@@ -1,2 +1,2 @@
-telegram_token = '6953336092:AAE-AMAkU3Cka4d_TH5lTxEB16ZPRtlgEeg'
+telegram_token = '6672944121:AAHafhJ4hmQwfZrCt5QGXvVfRK_jKKUFtDQ'
 lock_path = '/tmp/telegram_bot_lock'
