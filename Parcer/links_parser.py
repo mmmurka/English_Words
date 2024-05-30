@@ -35,7 +35,7 @@ def return_result(url):
         paths = case.find_all(class_='hover:tw-no-underline')
 
         for path in paths:
-            if path.get('href') != None:
+            if path.get('href'):
                 url = 'https://langeek.co' + path.get('href')
                 urls_of_subjects.append(url)
         for name in names:
