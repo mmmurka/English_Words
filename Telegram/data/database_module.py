@@ -8,9 +8,9 @@ from sqlalchemy import select
 from sqlalchemy.future import select
 
 db_config = {
-    "user": "mmmurka",
+    "user": "root",
     "password": "12341",
-    "host": "localhost",
+    "host": "db",
     "database": "englishwords",
 }
 

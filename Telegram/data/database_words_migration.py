@@ -5,9 +5,9 @@ from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 db_config = {
-    "user": "artemartem",
-    "password": "325159799",
-    "host": "localhost",
+    "user": "root",
+    "password": "12341",
+    "host": "db",
     "database": "englishwords",
 }
 
@@ -17,7 +17,7 @@ engine = create_engine(
 )
 Base = declarative_base()
 
-with open('/Users/artemartem/Documents/GitHub/English_Words/Parcer/words_list.json',
+with open('words_list.json',
           'r') as outfile:
     words_list = json.load(outfile)
     for group, dicti in words_list.items():

@@ -1,0 +1,17 @@
+# Используем базовый образ Python
+FROM python:3.12
+
+# Установка директории приложения внутри контейнера
+WORKDIR /app
+
+# Копируем только файлы, необходимые для миграции
+COPY Telegram/data/database_module.py ./data/
+COPY Telegram/data/database_words_migration.py ./data/
+COPY Telegram/data/words_list.json ./data/
+COPY requirements.txt ./
+
+# Установка зависимостей
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Команда по умолчанию для запуска миграции
+CMD ["sh", "-c", "python ./data/database_module.py && python ./data/database_words_migration.py"]
