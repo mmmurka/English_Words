@@ -1,0 +1,17 @@
+# Используем базовый образ Python
+FROM python:3.12
+
+# Установка директории приложения внутри контейнера
+WORKDIR /app
+
+# Копируем все файлы проекта в контейнер
+COPY . .
+
+# Устанавливаем PYTHONPATH
+ENV PYTHONPATH=/app
+
+# Установка зависимостей
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Команда по умолчанию для запуска бота
+CMD ["python3", "Telegram/main.py"]

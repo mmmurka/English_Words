@@ -8,9 +8,9 @@ from sqlalchemy import select
 from sqlalchemy.future import select
 
 db_config = {
-    "user": "mmmurka",
+    "user": "root",
     "password": "12341",
-    "host": "localhost",
+    "host": "db",
     "database": "englishwords",
 }
 
@@ -26,15 +26,6 @@ class User(Base):
 
     id = Column(BigInteger, primary_key=True)
     name = Column(String)
-
-
-# class Level(Base):
-#     __tablename__ = 'english by level'
-#
-#     id = Column(BigInteger, primary_key=True)
-#     group_subject = Column(String)
-#     word = Column(String)
-#     definition = Column(String)
 
 
 def create_table_class(tablename, extend_existing=True):

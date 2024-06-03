@@ -1,39 +1,9 @@
 from aiogram import Router
-from aiogram.types import Message, FSInputFile
-from Telegram.callbacks.topics import topic_from_table
-from ..keyboards import builders, fabrics, inline, reply
-from ..data.subloader import get_json
-from Telegram.translate.translateAPI import trans_text
-
+from aiogram.types import Message
 
 router = Router()
 
 
 @router.message()
 async def echo(message: Message):
-    msg = message.text.lower()
-    smiles = await get_json('smiles.json')
-    cat = FSInputFile("2024-01-11 19.07.16.jpg")
-    buttons = await topic_from_table('english by level')
-    if msg == 'автори':
-        await message.answer('Розробники бота:', reply_markup=inline.linsk_kb)
-    if msg == 'слава україні':
-        await message.answer('Героям Слава! 🇺🇦')
-    elif msg == 'спец кнопки':
-        await message.answer("Вот спец кнопки", reply_markup=reply.spec_kb)
-
-
-
-    elif msg == 'калькулятор':
-        await message.answer('Введите выражение:', reply_markup=builders.calc_kb())
-    elif msg == 'смайлики':
-
-        await message.answer(f'{buttons[0]}', reply_markup=fabrics.paginator())# в аргументы функции ничего не передается, так как по дефолту там стоит 0
-    elif msg == 'назад':
-        await message.answer('Вы вернулись в главное меню', reply_markup=reply.main_kb)
-    elif msg == 'ваша мама':
-        await message.answer('Вот ваша мама')
-        await message.answer_photo(cat)
-    else:
-        pass
-        #await message.answer_photo(cat)
+    await message.answer('Оберіть необхідний пункт меню ❤️')

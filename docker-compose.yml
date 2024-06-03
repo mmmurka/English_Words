@@ -1,26 +1,47 @@
-version: '3.7'
+version: '3.8'
 services:
   db:
     image: postgres:16-alpine
-    env_file:
-      - ./.env
+    restart: always
+    environment:
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: root
+      POSTGRES_PORT: '5432'
+      POSTGRES_PASSWORD: 12341
+      POSTGRES_DB: englishwords
+    networks:
+      - mynetwork
+
     volumes:
       - pgdata:/var/lib/postgresql/data
-    restart: on-failure
     ports:
       - "5432:5432"
-  bot:
-    build: .
-    command: sh -c 'make migrate && python -m bot'
-    env_file:
-      - ./.env
-    restart: always
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile-migration
+    # Указываем, что контейнер должен быть запущен только один раз для миграции
+    command: [ "echo", "Migration completed" ]
+    # Зависимость от контейнера с базой данных
     depends_on:
       - db
 
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile-bot
+    # Устанавливаем зависимость от контейнера с миграцией
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://root:12341@db/englishwords
+    networks:
+      - mynetwork
 
-
-
+networks:
+  mynetwork:
+    driver: bridge
 
 volumes:
   pgdata:
