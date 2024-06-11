@@ -40,7 +40,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *,cover
-
+.DS_Store
 # Sphinx documentation
 docs/_build/
 
