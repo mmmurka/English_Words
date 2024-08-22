@@ -1,17 +1,19 @@
 import asyncio
-import enum
 
 import sqlalchemy.orm
 from sqlalchemy import Column, Integer, String, BigInteger
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy import select
-from sqlalchemy.future import select
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
 
 db_config = {
-    "user": "root",
-    "password": "12341",
-    "host": "db",
-    "database": "englishwords",
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "database": os.getenv("DB_DATABASE"),
 }
 
 DATABASE_URL = f"postgresql+asyncpg://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}"
@@ -29,6 +31,9 @@ class User(Base):
 
 
 def create_table_class(tablename, extend_existing=True):
+    """Leave the metadata as is, it will be used in other files
+    Don't change metadata.tables[tablename] = Table
+    """
     class Table(Base):
         __tablename__ = tablename
         __table_args__ = {'extend_existing': True}
@@ -38,9 +43,6 @@ def create_table_class(tablename, extend_existing=True):
         subject = Column(String)
         word = Column(String)
         definition = Column(String)
-
-    # Оставьте метаданные как они есть, они будут использоваться в других файлах
-    # Не изменяйте metadata.tables[tablename] = Table
 
     return Table
 

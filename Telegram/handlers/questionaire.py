@@ -1,10 +1,8 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.types import Message
-from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
 from Telegram.utils.states import Form
-from Telegram.keyboards.builders import profile
 from Telegram.keyboards.inline import translate_kb as tr
 from Telegram.keyboards.inline import translate as tran
 

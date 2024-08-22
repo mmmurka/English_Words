@@ -1,18 +1,4 @@
-import time
-
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from Telegram.translate.translateAPI import trans_text
-import asyncio
-
-
-# async def user_translation():
-#     user_input = input("Введите текст для перевода: ")
-#     result = await trans_text(text=user_input, src='uk', dest='en')
-#     print(result)
-#
-# asyncio.run(user_translation())
-
 
 def calc_kb():
     items = [
