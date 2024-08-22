@@ -12,12 +12,10 @@ certifi==2023.11.17
 charset-normalizer==3.3.2
 Cython==3.0.8
 distlib==0.3.7
-Django==4.2.5
 fasteners==0.19
 filelock==3.12.4
 frozenlist==1.4.1
 greenlet==3.0.3
-idna
 iniconfig==2.0.0
 lxml==5.0.0
 magic-filter==1.0.12
