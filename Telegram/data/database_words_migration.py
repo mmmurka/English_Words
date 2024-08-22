@@ -1,14 +1,19 @@
 import json
-import time
+from dotenv import load_dotenv
 
 from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker
 
+import os
+
+
+load_dotenv()
+
 db_config = {
-    "user": "root",
-    "password": "12341",
-    "host": "db",
-    "database": "englishwords",
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "database": os.getenv("DB_DATABASE"),
 }
 
 engine = create_engine(
