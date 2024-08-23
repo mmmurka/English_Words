@@ -9,9 +9,3 @@ async def trans_text(text='text', src='en', dest='uk'):
         return translation.text
     except Exception as ex:
         return ex
-
-
-
-
-
-

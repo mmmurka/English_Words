@@ -1,5 +1,6 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 
+
 def calc_kb():
     items = [
         '1', '2', '3', '/',
@@ -25,6 +26,7 @@ def profile(text: str | list):
         builder.button(text=text)
     return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
 
+
 def topic_kb(topics: list, table: str):
 
     keyboard = InlineKeyboardBuilder()
@@ -34,6 +36,7 @@ def topic_kb(topics: list, table: str):
     keyboard.adjust(1)
 
     return keyboard.as_markup()
+
 
 def theme_kb(themes: list, table: str, group_subject: str):
 
