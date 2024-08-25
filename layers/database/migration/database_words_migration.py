@@ -22,7 +22,7 @@ engine = create_engine(
 )
 Base = declarative_base()
 
-with open('words_list.json',
+with open('../data/words_list.json',
           'r') as outfile:
     words_list = json.load(outfile)
     for group, dicti in words_list.items():

@@ -2,14 +2,15 @@ import asyncio
 
 import logging
 from aiogram import Bot, Dispatcher
-from config import lock_path
+from config.config import lock_path
 from aiogram.fsm.storage.memory import MemoryStorage
 import fasteners
 import os
 from dotenv import load_dotenv
 
-from Telegram.handlers import bot_messages, user_commands, questionaire
-from Telegram.callbacks import pagination, greeting
+from modules.english_words.handlers import questionaire
+from modules.english_words.handlers import user_commands, bot_messages
+from modules.english_words.callbacks import pagination, greeting
 
 lock = fasteners.InterProcessLock(lock_path)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",)
@@ -35,4 +36,3 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
-

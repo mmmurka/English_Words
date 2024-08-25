@@ -5,9 +5,9 @@ FROM python:3.12
 WORKDIR /app
 
 # Копируем только файлы, необходимые для миграции
-COPY Telegram/data/database_module.py ./data/
-COPY Telegram/data/database_words_migration.py ./data/
-COPY Telegram/data/words_list.json ./data/
+COPY layers/database/controller/database_module.py ./data/
+COPY layers/database/migration/database_words_migration.py ./data/
+COPY layers/database/data/words_list.json ./data/
 COPY requirements.txt ./
 
 # Установка зависимостей

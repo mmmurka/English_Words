@@ -1,7 +1,7 @@
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.filters.callback_data import CallbackData
-from Telegram.callbacks.topics import group_from_theme, theme_from_topic, topic_from_table
+from modules.english_words.callbacks.topics import group_from_theme, theme_from_topic, topic_from_table
 
 
 class Pagination(CallbackData, prefix="pag"):
@@ -107,7 +107,7 @@ def greeting():
         InlineKeyboardButton(text='Теми', callback_data='topics'),
         InlineKeyboardButton(text='Розробники', callback_data='devs'),
         InlineKeyboardButton(text='Про бота', callback_data='bot_info'),
-        InlineKeyboardButton(text='Перекладач', callback_data='translate'),
+        InlineKeyboardButton(text='Перекладач', callback_data='translate_api'),
         width=2
     )
     return builder.as_markup()

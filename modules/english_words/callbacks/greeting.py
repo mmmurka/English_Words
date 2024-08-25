@@ -1,20 +1,35 @@
-import asyncio
-from contextlib import suppress
-
-from aiogram import Router, F, types
-from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from Telegram.keyboards import fabrics, inline
-from Telegram.keyboards.builders import topic_kb, theme_kb
-from Telegram.keyboards.inline import trans_kb
-from Telegram.translate.translateAPI import trans_text
-from Telegram.utils.states import Form
-from aiogram.utils.keyboard import InlineKeyboardBuilder
-from Telegram.callbacks.topics import topic_from_table, theme_from_topic, words_from_theme, group_from_theme
-from Telegram.keyboards.fabrics import create_paginator, create_theme_paginator
+from aiogram import Router, F
+from aiogram.types import CallbackQuery
+from modules.english_words.keyboards import fabrics, inline
+from modules.english_words.keyboards.inline import trans_kb
+from modules.english_words.utils.states import Form
+from modules.english_words.callbacks.topics import topic_from_table, words_from_theme
+from modules.english_words.keyboards.fabrics import create_paginator, create_theme_paginator
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message
 
 router = Router()
+
+"""
+This file defines a set of callback query handlers for a Telegram bot built using the aiogram library.
+Each handler is responsible for processing a specific callback data value and sending an appropriate response 
+to the user.
+
+Here's a brief overview of the handlers:
+
+1. send_info_devs: Displays information about the developers of the bot when the user clicks on a "devs" button.
+2. send_bot_info: Provides information about the bot's purpose when the user clicks on a "bot_info" button.
+3. button_back: Returns the user to the main menu or a greeting message when the user clicks on a "back" button.
+4. topics: Allows the user to choose a section for learning words when the "topics" button is clicked.
+5. support: Prompts the user to choose a translation language when the "translate_api" button is clicked.
+6. ukr_trans: Sets the bot's state to expect an English word from the user for translation into Ukrainian.
+7. eng_trans: Sets the bot's state to expect a word in another language (such as Ukrainian) for translation into English.
+8. topic: Handles the selection of a topic by the user and displays available themes related to that topic.
+9. theme: Displays a list of words or themes within a selected subject or category.
+10. words: Retrieves and displays the definition or translation of a word based on the selected theme or category.
+
+These handlers are part of the bot's dialogue management system, providing users with an interactive 
+and structured way to learn English words and phrases.
+"""
 
 
 @router.callback_query(F.data == "devs")
@@ -46,7 +61,7 @@ async def topics(callback: CallbackQuery):
                                      reply_markup=inline.topics_kb)
 
 
-@router.callback_query(F.data == "translate")
+@router.callback_query(F.data == "translate_api")
 async def support(callback: CallbackQuery, state: FSMContext) -> None:
     await callback.message.edit_text('Оберіть мову перекладу :)', reply_markup=trans_kb)
 
@@ -79,8 +94,6 @@ async def theme(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
     group_subject = button_info[2].split('_')
     table = button_info[1].split('_')
-    # themes_list = await theme_from_topic(' '.join(table), ' '.join(group_subject))
-    # keyboard = theme_kb(themes_list, '_'.join(table), '_'.join(group_subject))
     my_paginator = await create_theme_paginator(' '.join(table), ' '.join(group_subject), 'theme')
     await callback.message.edit_text("Оберіть тему:", reply_markup=my_paginator(0))
 

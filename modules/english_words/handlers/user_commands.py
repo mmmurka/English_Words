@@ -1,13 +1,11 @@
-import asyncio
-
-from aiogram import Router, F
-from aiogram.types import Message, FSInputFile
+from aiogram import Router
+from aiogram.types import Message
 from aiogram.filters import CommandStart
 from sqlalchemy.future import select
 
 
-from Telegram.keyboards import reply, inline, fabrics
-from Telegram.data import database_module as db
+from modules.english_words.keyboards import fabrics
+from controller import database_module as db
 
 router = Router()
 
@@ -29,9 +27,6 @@ async def start(message: Message):
         else:
             await db.create_user(tg_user_id, name)
             print(f'User {name} with ID {tg_user_id} added to the database.')
-
-
-
 
     await message.answer(
         f'{name}, привітики!🙈\n\nДавай вивчати англійську разом 🇬🇧\n\n'

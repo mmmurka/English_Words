@@ -32,5 +32,5 @@ for group, dicti in dictionary.items():
                 tmp[header] = dictionary
         result[i] = tmp
     words_list[group] = result
-with open('../Telegram/data/words_list.json', 'w') as outfile:
+with open('../database/data/words_list.json', 'w') as outfile:
     json.dump(words_list, outfile)

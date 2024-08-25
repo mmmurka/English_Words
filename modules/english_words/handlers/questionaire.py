@@ -2,11 +2,11 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
-from Telegram.utils.states import Form
-from Telegram.keyboards.inline import translate_kb as tr
-from Telegram.keyboards.inline import translate as tran
+from modules.english_words.utils.states import Form
+from modules.english_words.keyboards.inline import translate_kb as tr
+from modules.english_words.keyboards.inline import translate as tran
 
-from Telegram.translate.translateAPI import trans_text
+from translateAPI import trans_text
 
 
 router = Router()

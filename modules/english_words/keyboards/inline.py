@@ -28,7 +28,7 @@ back_kb = InlineKeyboardMarkup(
 translate_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='Назад', callback_data='translate'),
+            InlineKeyboardButton(text='Назад', callback_data='translate_api'),
             InlineKeyboardButton(text='Переклад', callback_data='ukraine')
         ]
     ],
@@ -37,7 +37,7 @@ translate_kb = InlineKeyboardMarkup(
 translate = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='Назад', callback_data='translate'),
+            InlineKeyboardButton(text='Назад', callback_data='translate_api'),
             InlineKeyboardButton(text='Переклад', callback_data='english')
         ]
     ],

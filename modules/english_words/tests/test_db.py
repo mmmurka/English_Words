@@ -1,6 +1,6 @@
 import pytest
 from sqlalchemy.future import select
-from Telegram.data.database_module import Base, User, engine, create_user
+from controller.database_module import Base, User, engine, create_user
 
 
 @pytest.fixture
