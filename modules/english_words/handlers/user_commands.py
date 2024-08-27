@@ -5,7 +5,8 @@ from sqlalchemy.future import select
 
 
 from modules.english_words.keyboards import fabrics
-from controller import database_module as db
+#from controller import database_module as db
+from layers.database.controller import database_module as db
 
 router = Router()
 

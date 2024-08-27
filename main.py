@@ -12,7 +12,7 @@ from modules.english_words.handlers import questionaire
 from modules.english_words.handlers import user_commands, bot_messages
 from modules.english_words.callbacks import pagination, greeting
 
-lock = fasteners.InterProcessLock(lock_path)
+#lock = fasteners.InterProcessLock(lock_path)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",)
 load_dotenv()
 
@@ -29,9 +29,9 @@ async def main():
         greeting.router
     )
 
-    with lock:
-        await bot.delete_webhook(drop_pending_updates=True)
-        await dp.start_polling(bot)
+
+    await bot.delete_webhook(drop_pending_updates=True)
+    await dp.start_polling(bot)
 
 
 if __name__ == '__main__':

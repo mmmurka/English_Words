@@ -6,7 +6,8 @@ from aiogram.exceptions import TelegramBadRequest
 from modules.english_words.keyboards import fabrics
 from modules.english_words.callbacks.topics import topic_from_table, words_from_theme, theme_from_topic
 from modules.english_words.keyboards.fabrics import create_paginator, create_theme_paginator
-from translateAPI import trans_text
+#from translateAPI import trans_text
+from layers.translate_api.translateAPI import trans_text
 
 router = Router()
 
