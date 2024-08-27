@@ -1,6 +1,7 @@
+from aiogram.filters.callback_data import CallbackData
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.filters.callback_data import CallbackData
+
 from modules.english_words.callbacks.topics import group_from_theme, theme_from_topic, topic_from_table
 
 
@@ -23,8 +24,6 @@ async def create_paginator(db_table: str, db_theme: str):
     group_subject = await group_from_theme(db_table, db_theme)
     group_subject = ' '.join(group_subject)
     group_subject = group_subject[:15]
-
-    print(group_subject)
 
     def paginator(page: int = 0):
         if db_table == 'most_common' or db_table == 'most common':

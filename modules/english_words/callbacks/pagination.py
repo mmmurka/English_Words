@@ -6,7 +6,6 @@ from aiogram.exceptions import TelegramBadRequest
 from modules.english_words.keyboards import fabrics
 from modules.english_words.callbacks.topics import topic_from_table, words_from_theme, theme_from_topic
 from modules.english_words.keyboards.fabrics import create_paginator, create_theme_paginator
-#from translateAPI import trans_text
 from layers.translate_api.translateAPI import trans_text
 
 router = Router()
@@ -43,7 +42,6 @@ async def pagination_handler(call: CallbackQuery, callback_data: fabrics.Paginat
     if callback_data.action == "next":
         page = page_num + 1 if page_num < (len(buttons) - 1) else page_num
 
-    # Create an instance of the paginator function with specific db_table and db_theme values
     my_paginator = await create_paginator(db_table=' '.join(table), db_theme=' '.join(theme))
 
     with suppress(TelegramBadRequest):
@@ -81,7 +79,6 @@ async def theme_pagination_handler(call: CallbackQuery, callback_data: fabrics.P
     if callback_data.action == "next":
         page = page_num + 1 if page_num < (len(buttons) - 1) else page_num
 
-    # Create an instance of the paginator function using the db_table and db_theme values
     my_paginator = await create_theme_paginator(db_table=table, db_group_subject=group_subject, theme_or_topic=theme_or_topic)
 
     with suppress(TelegramBadRequest):

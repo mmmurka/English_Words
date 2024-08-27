@@ -62,7 +62,7 @@ async def topics(callback: CallbackQuery):
 
 
 @router.callback_query(F.data == "translate_api")
-async def support(callback: CallbackQuery, state: FSMContext) -> None:
+async def support(callback: CallbackQuery) -> None:
     await callback.message.edit_text('Оберіть мову перекладу :)', reply_markup=trans_kb)
 
 
@@ -84,13 +84,12 @@ async def eng_trans(callback: CallbackQuery, state: FSMContext) -> None:
 async def topic(callback: CallbackQuery, state: FSMContext):
     button_info = callback.data.split(':')
     table = button_info[1].split('_')
-    topics_list = await topic_from_table(' '.join(table))
     my_paginator = await create_theme_paginator(' '.join(table), ' ', 'topic')
     await callback.message.edit_text("Оберіть тему:", reply_markup=my_paginator(0))
 
 
 @router.callback_query(F.data.startswith('theme:'))
-async def theme(callback: CallbackQuery, state: FSMContext):
+async def theme(callback: CallbackQuery):
     button_info = callback.data.split(':')
     group_subject = button_info[2].split('_')
     table = button_info[1].split('_')
@@ -99,7 +98,7 @@ async def theme(callback: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(F.data.startswith('words:'))
-async def words(callback: CallbackQuery, state: FSMContext):
+async def words(callback: CallbackQuery):
     button_info = callback.data.split(':')
     table = button_info[1].split("_")
     theme = button_info[2].split("_")

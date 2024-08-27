@@ -6,7 +6,6 @@ from modules.english_words.utils.states import Form
 from modules.english_words.keyboards.inline import translate_kb as tr
 from modules.english_words.keyboards.inline import translate as tran
 
-#from translateAPI import trans_text
 from layers.translate_api.translateAPI import trans_text
 
 

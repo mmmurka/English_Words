@@ -5,7 +5,6 @@ from sqlalchemy.future import select
 
 
 from modules.english_words.keyboards import fabrics
-#from controller import database_module as db
 from layers.database.controller import database_module as db
 
 router = Router()
@@ -33,6 +32,4 @@ async def start(message: Message):
         f'{name}, привітики!🙈\n\nДавай вивчати англійську разом 🇬🇧\n\n'
         f'Ти можеш обрати розділ з необхідними темами, або вивчати нові слова на своєму рівні\n\n\n'
         f'Keep going! \n\n'
-        f'⬇️Обери необхідний пункт нижче⬇️\n',
-                         reply_markup=fabrics.greeting())
-
+        f'⬇️Обери необхідний пункт нижче⬇️\n', reply_markup=fabrics.greeting())
