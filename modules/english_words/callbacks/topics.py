@@ -1,5 +1,7 @@
 from re import search
 
+import random
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from layers.database.controller import database_module as db
@@ -41,8 +43,9 @@ async def words_from_theme(table_name, theme_word):
             stmt = select(table.definition).where(table.subject.like(f'%{theme_word}%')).group_by(table.id)
             definitions = await session.execute(stmt)
             definitions = definitions.scalars().all()
-            for i in range(0,len(words)-1):
-                result.append((f'{words[i]} - {definitions[i]}'))
+            for i in range(0, len(words)-1):
+                result.append(f'{words[i]} - {definitions[i]}')
+            random.shuffle(result)
             return result
 
 
@@ -57,7 +60,6 @@ async def group_from_theme(table_name: str, theme_word: str):
             stmt = select(table.group_subject).distinct().where(table.subject.like(f'%{theme}%')).group_by(table.id)
             group = await session.execute(stmt)
             group = group.scalars().all()
-            # print(group)
 
             return group
 
