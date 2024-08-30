@@ -37,7 +37,6 @@ async def create_paginator(db_table: str, db_theme: str):
             InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, db_table=db_table,
                                                                      db_theme=db_theme).pack()),
             InlineKeyboardButton(text="Назад", callback_data=cb_data),
-
             InlineKeyboardButton(text='🇺🇦',
                                  callback_data=Pagination(action="trans", page=page, db_table=db_table,
                                                           db_theme=db_theme).pack()),
