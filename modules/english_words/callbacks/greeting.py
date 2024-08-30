@@ -1,14 +1,15 @@
+import random
+
 from aiogram import Router, F
+from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
+from modules.english_words.callbacks.topics import words_from_theme, cache
 from modules.english_words.keyboards import fabrics, inline
+from modules.english_words.keyboards.fabrics import create_paginator, create_theme_paginator
 from modules.english_words.keyboards.inline import trans_kb
 from modules.english_words.utils.states import Form
-from modules.english_words.callbacks.topics import topic_from_table, words_from_theme
-from modules.english_words.keyboards.fabrics import create_paginator, create_theme_paginator
-from aiogram.fsm.context import FSMContext
 
 router = Router()
-
 """
 This file defines a set of callback query handlers for a Telegram bot built using the aiogram library.
 Each handler is responsible for processing a specific callback data value and sending an appropriate response 
@@ -93,6 +94,7 @@ async def theme(callback: CallbackQuery):
     button_info = callback.data.split(':')
     group_subject = button_info[2].split('_')
     table = button_info[1].split('_')
+    cache.clear()
     my_paginator = await create_theme_paginator(' '.join(table), ' '.join(group_subject), 'theme')
     await callback.message.edit_text("Оберіть тему:", reply_markup=my_paginator(0))
 
@@ -102,6 +104,10 @@ async def words(callback: CallbackQuery):
     button_info = callback.data.split(':')
     table = button_info[1].split("_")
     theme = button_info[2].split("_")
+    cache_key = f"{table}-{theme}"
+
     word_definition = await words_from_theme(' '.join(table), ' '.join(theme))
+
     my_paginator = await create_paginator(button_info[1], button_info[2])
     await callback.message.edit_text(f'{word_definition[0]}', reply_markup=my_paginator())
+

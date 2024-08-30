@@ -1,10 +1,11 @@
+import asyncio
+import random
 from re import search
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from layers.database.controller import database_module as db
 
-import asyncio
+from layers.database.controller import database_module as db
 
 
 async def topic_from_table(table_name):
@@ -29,7 +30,19 @@ async def theme_from_topic(table_name, group_subject):
             return values
 
 
+cache = {}
+
+
 async def words_from_theme(table_name, theme_word):
+    cache_key = f"{table_name}-{theme_word}"
+
+    # Проверяем, есть ли данные в кеше
+    if cache_key in cache:
+        print(f"Данные найдены в кеше для ключа: {cache_key}")
+        return cache[cache_key]
+
+    print(f"Данные не найдены в кеше, делаем запрос к БД для ключа: {cache_key}")
+
     async with AsyncSession(db.engine) as session:
         async with session.begin():
             theme_word = theme_word.split('-')[1]
@@ -41,9 +54,17 @@ async def words_from_theme(table_name, theme_word):
             stmt = select(table.definition).where(table.subject.like(f'%{theme_word}%')).group_by(table.id)
             definitions = await session.execute(stmt)
             definitions = definitions.scalars().all()
-            for i in range(0,len(words)-1):
-                result.append((f'{words[i]} - {definitions[i]}'))
-            return result
+            for i in range(0, len(words)):
+                result.append(f'{words[i]} - {definitions[i]}')
+
+            # Перемешиваем результат
+            shuffled_result = random.sample(result, len(result))
+
+            # Сохраняем результат в кеш
+            cache[cache_key] = shuffled_result
+
+            # Возвращаем перемешанный список
+            return shuffled_result
 
 
 async def group_from_theme(table_name: str, theme_word: str):
