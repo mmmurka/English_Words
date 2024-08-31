@@ -105,8 +105,8 @@ def greeting():
     builder.row(
         InlineKeyboardButton(text='Теми', callback_data='topics'),
         InlineKeyboardButton(text='Розробники', callback_data='devs'),
-        InlineKeyboardButton(text='Про бота', callback_data='bot_info'),
         InlineKeyboardButton(text='Перекладач', callback_data='translate_api'),
+        InlineKeyboardButton(text='Профіль', callback_data='profile'),
         width=2
     )
     return builder.as_markup()

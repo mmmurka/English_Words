@@ -82,3 +82,11 @@ topics_kb = InlineKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
+profile_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Назад', callback_data='back'),
+        ],
+    ],
+)
