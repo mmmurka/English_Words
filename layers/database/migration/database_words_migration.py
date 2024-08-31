@@ -1,52 +1,44 @@
 import json
+from sqlalchemy import Column, String, BigInteger
+from sqlalchemy.orm import sessionmaker
+
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
-
-from sqlalchemy import create_engine, Column, String, Integer
-from sqlalchemy.orm import declarative_base, sessionmaker
-
 import os
 
 
 load_dotenv()
 
-db_config = {
-    "user": os.getenv("DB_USER"),
-    "password": os.getenv("DB_PASSWORD"),
-    "host": os.getenv("DB_HOST"),
-    "database": os.getenv("DB_DATABASE"),
-}
+DATABASE_URL_SYNC = os.getenv("SQLALCHEMY_DATABASE_URL")
 
-engine = create_engine(
-    f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}",
-    echo=True
-)
+engine = create_engine(DATABASE_URL_SYNC, echo=True)
 Base = declarative_base()
 
-with open('../data/words_list.json',
-          'r') as outfile:
+# Создаем сессию для взаимодействия с базой данных
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+db = SessionLocal()
+
+with open('../data/words_list.json', 'r') as outfile:
     words_list = json.load(outfile)
     for group, dicti in words_list.items():
-        class_name = f"Word_{group}"
+        class_name = f"Word_{group.capitalize()}"
         table_name = group.lower()
 
         # Динамическое создание класса
-
         word_class = type(class_name, (Base,), {
             "__tablename__": table_name,
-            "id": Column(Integer, primary_key=True, index=True),
+            "id": Column(BigInteger, primary_key=True),
             "group_subject": Column(String, index=True),
             "subject": Column(String, index=True),
             "word": Column(String, index=True),
             "definition": Column(String)
         })
+
         # Динамическое создание таблицы
-        word_class.__table__.create(bind=engine, checkfirst=True)
+        Base.metadata.create_all(bind=engine, tables=[word_class.__table__])
 
-        # Создаем сессию для взаимодействия с базой данных
-        SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-        db = SessionLocal()
-
-        # Проходим по данным и добавляем их в базу данных
+        # Заполнение таблицы данными
         for group_subject, group_dicti in dicti.items():
             for subject, word_definition in group_dicti.items():
                 for word, definition in word_definition.items():
@@ -54,5 +46,4 @@ with open('../data/words_list.json',
                                           definition=definition)
                     db.add(new_word)
 
-        # Сохраняем изменения в базе данных
-        db.commit()
+    db.commit()
