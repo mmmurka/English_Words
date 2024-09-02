@@ -34,17 +34,17 @@ profile_kb = InlineKeyboardMarkup(
 )
 
 
-def group_subject_kb():
+def word_tables_kb():
     builder = InlineKeyboardBuilder()
     builder.row(
-        InlineKeyboardButton(text='English By Level', callback_data='topic:english_by_level'),
-        InlineKeyboardButton(text='Verbs', callback_data='topic:verbs'),
-        InlineKeyboardButton(text='Topic Vocabulary', callback_data='topic:topic_vocabulary'),
-        InlineKeyboardButton(text='Adverbs', callback_data='topic:adverbs'),
-        InlineKeyboardButton(text='Collocations', callback_data='topic:collocations'),
-        InlineKeyboardButton(text='Adjectives', callback_data='topic:adjectives'),
-        InlineKeyboardButton(text='Most Common', callback_data='topic:most_common'),
-        InlineKeyboardButton(text='IELTS', callback_data='topic:ielts'),
+        InlineKeyboardButton(text='English By Level', callback_data='group_subject:english_by_level'),
+        InlineKeyboardButton(text='Verbs', callback_data='group_subject:verbs'),
+        InlineKeyboardButton(text='Topic Vocabulary', callback_data='group_subject:topic_vocabulary'),
+        InlineKeyboardButton(text='Adverbs', callback_data='group_subject:adverbs'),
+        InlineKeyboardButton(text='Collocations', callback_data='group_subject:collocations'),
+        InlineKeyboardButton(text='Adjectives', callback_data='group_subject:adjectives'),
+        InlineKeyboardButton(text='Most Common', callback_data='group_subject:most_common'),
+        InlineKeyboardButton(text='IELTS', callback_data='group_subject:ielts'),
         InlineKeyboardButton(text='Назад', callback_data='back'),
         width=2)
     return builder.as_markup()
@@ -53,11 +53,10 @@ def group_subject_kb():
 def greeting_kb():
     builder = InlineKeyboardBuilder()
     builder.row(
-        InlineKeyboardButton(text='Теми', callback_data='group_subject'),
+        InlineKeyboardButton(text='Теми', callback_data='word_tables'),
         InlineKeyboardButton(text='Розробники', callback_data='developers'),
         InlineKeyboardButton(text='Профіль', callback_data='profile'),
         width=2
     )
     return builder.as_markup()
-
 

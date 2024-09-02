@@ -3,6 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from layers.functions.cb_decoder import decode_table, decode_group_subject
+from modules.words.keyboards.paginators import create_subject_paginator
 from modules.words.keyboards import inline
 
 router = Router()
@@ -35,10 +36,16 @@ async def button_back(callback: CallbackQuery, state: FSMContext):
 async def profile(callback: CallbackQuery) -> None:
     await callback.message.edit_text('Ваш профіль', reply_markup=inline.profile_kb)
 
-@router.callback_query(F.data == "group_subject")
+@router.callback_query(F.data == "word_tables")
 async def word_tables(callback: CallbackQuery):
     await callback.message.edit_text('Супер!🥳 \n\nДавай оберемо розділ для вивчення слів💫',
-                                     reply_markup=inline.group_subject_kb())
+                                     reply_markup=inline.word_tables_kb())
+
+@router.callback_query(F.data.startswith('group_subject:'))
+async def group_subject(callback: CallbackQuery):
+    table_name = callback.data.split(':')[1]
+    paginator = await create_subject_paginator(table_name)
+    await callback.message.edit_text("Оберіть тему:", reply_markup=paginator())
 
 
 # @router.callback_query(F.data.startswith('subjects:'))
@@ -47,4 +54,7 @@ async def word_tables(callback: CallbackQuery):
 #     button_info = callback.data.split(':')
 #     table_name = decode_table(button_info[1])
 #     group_subject = decode_group_subject(button_info[2])
-#     # paginator = await create_subject_paginator(' '.join(table_name), ' '.join(group_subject), 'subjects')
+#     paginator = await subject_paginator(' '.join(table_name), ' '.join(group_subject), 'subjects')
+#
+#     await callback.message.edit_text("Оберіть розділ:", reply_markup=paginator(0))
+
