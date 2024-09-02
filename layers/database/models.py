@@ -31,8 +31,8 @@ class UserWord(Base):
 class DynamicTable(Base):
     __abstract__ = True  # abstract class
 
-    id = Column(BigInteger, primary_key=True, index=True)
+    id = Column(BigInteger, primary_key=True)
     group_subject = Column(String, index=True)
     subject = Column(String, index=True)
-    word = Column(String, index=True)
-    definition = Column(String, index=True)
+    word = Column(String)
+    definition = Column(String)

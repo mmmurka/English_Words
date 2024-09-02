@@ -2,8 +2,8 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 
-from modules.english_words.keyboards import fabrics
-from functions.create_user_ import create_user
+from modules.words.keyboards.inline import greeting_kb
+from layers.database.functions.create_user_ import create_user
 
 router = Router()
 
@@ -21,4 +21,4 @@ async def start(message: Message):
         f'{name}, привітики!🙈\n\nДавай вивчати англійську разом 🇬🇧\n\n'
         f'Ти можеш обрати розділ з необхідними темами, або вивчати нові слова на своєму рівні\n\n\n'
         f'Keep going! \n\n'
-        f'⬇️Обери необхідний пункт нижче⬇️\n', reply_markup=fabrics.greeting())
+        f'⬇️Обери необхідний пункт нижче⬇️\n', reply_markup=greeting_kb())
