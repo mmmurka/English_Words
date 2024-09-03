@@ -1,9 +1,13 @@
+from contextlib import suppress
+
 from aiogram import Router, F
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from layers.functions.cb_decoder import decode_table, decode_group_subject
-from modules.words.keyboards.paginators import create_subject_paginator
+from modules.words.data.data_retriever import get_group_subjects
+from modules.words.keyboards.paginators import create_subject_paginator, Pagination
 from modules.words.keyboards import inline
 
 router = Router()
@@ -35,6 +39,7 @@ async def button_back(callback: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data == "profile")
 async def profile(callback: CallbackQuery) -> None:
     await callback.message.edit_text('Ваш профіль', reply_markup=inline.profile_kb)
+
 
 @router.callback_query(F.data == "word_tables")
 async def word_tables(callback: CallbackQuery):

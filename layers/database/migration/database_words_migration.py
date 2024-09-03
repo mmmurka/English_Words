@@ -22,37 +22,38 @@ db = SessionLocal()
 def normalize_string(s):
     return ' '.join(s.split()).strip()
 
-with open('../data/words_list.json', 'r') as outfile:
-    words_list = json.load(outfile)
-    for group, dicti in words_list.items():
-        class_name = f"Word_{normalize_string(group).capitalize().replace(' ', '_')}"
-        table_name = normalize_string(group).lower().replace(' ', '_')
+if __name__ == '__main__':
+    with open('modules/words/data/words_list.json', 'r') as outfile:
+        words_list = json.load(outfile)
+        for group, dicti in words_list.items():
+            class_name = f"Word_{normalize_string(group).capitalize().replace(' ', '_')}"
+            table_name = normalize_string(group).lower().replace(' ', '_')
 
-        # Динамическое создание класса
-        word_class = type(class_name, (Base,), {
-            "__tablename__": table_name,
-            "id": Column(BigInteger, primary_key=True),
-            "group_subject": Column(String, index=True),
-            "subject": Column(String, index=True),
-            "word": Column(String),
-            "definition": Column(String)
-        })
+            # Динамическое создание класса
+            word_class = type(class_name, (Base,), {
+                "__tablename__": table_name,
+                "id": Column(BigInteger, primary_key=True),
+                "group_subject": Column(String, index=True),
+                "subject": Column(String, index=True),
+                "word": Column(String),
+                "definition": Column(String)
+            })
 
-        # Динамическое создание таблицы
-        Base.metadata.create_all(bind=engine, tables=[word_class.__table__])
+            # Динамическое создание таблицы
+            Base.metadata.create_all(bind=engine, tables=[word_class.__table__])
 
-        # Заполнение таблицы данными
-        for group_subject, group_dicti in dicti.items():
-            normalized_group_subject = normalize_string(group_subject)
-            for subject, word_definition in group_dicti.items():
-                normalized_subject = normalize_string(subject)
-                for word, definition in word_definition.items():
-                    normalized_word = normalize_string(word)
-                    normalized_definition = normalize_string(definition)
-                    new_word = word_class(group_subject=normalized_group_subject,
-                                          subject=normalized_subject,
-                                          word=normalized_word,
-                                          definition=normalized_definition)
-                    db.add(new_word)
+            # Заполнение таблицы данными
+            for group_subject, group_dicti in dicti.items():
+                normalized_group_subject = normalize_string(group_subject)
+                for subject, word_definition in group_dicti.items():
+                    normalized_subject = normalize_string(subject)
+                    for word, definition in word_definition.items():
+                        normalized_word = normalize_string(word)
+                        normalized_definition = normalize_string(definition)
+                        new_word = word_class(group_subject=normalized_group_subject,
+                                              subject=normalized_subject,
+                                              word=normalized_word,
+                                              definition=normalized_definition)
+                        db.add(new_word)
 
-    db.commit()
+        db.commit()
