@@ -1,23 +1,17 @@
 import os
-from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from layers.database.models import Base  # Импортируйте свои модели
+from layers.database.models import Base
 
-# Загрузка переменных окружения из .env файла
-load_dotenv()
 
-# Получение конфигурации Alembic
 config = context.config
+db_url = os.getenv('DB_URL')
 
-# Настройка строки подключения к базе данных из переменных окружения
-config.set_main_option(
-    'sqlalchemy.url',
-    f'postgresql+psycopg2://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}/{os.getenv("DB_DATABASE")}'
-)
+if db_url:
+    config.set_main_option('sqlalchemy.url', db_url)
 
-# Получение метаданных
 target_metadata = Base.metadata
+
 
 def run_migrations_offline():
     """
@@ -53,6 +47,7 @@ def run_migrations_online():
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()
