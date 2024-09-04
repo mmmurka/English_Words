@@ -3,6 +3,7 @@ from mailcap import subst
 
 from aiogram import Router, F
 from aiogram.exceptions import TelegramBadRequest
+from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from layers.functions.cb_decoder import decode_table, decode_group_subject, decode_subject
@@ -14,7 +15,7 @@ from modules.words.keyboards.paginators import create_group_subject_paginator, c
 router = Router()
 
 @router.callback_query(F.data.startswith("pag:"))
-async def handle_pagination(call: CallbackQuery):
+async def handle_pagination(call: CallbackQuery, state: FSMContext):
     # Разбиваем данные на части
 
     data_parts = call.data.split(':')
@@ -71,13 +72,16 @@ async def handle_pagination(call: CallbackQuery):
         except IndexError:
             raise IndexError('Не передано назву теми')
 
-        words, definitions = await get_words(decoded_table_name, decoded_group_subject, decoded_subject)
+        # words, definitions = await get_words(decoded_table_name, decoded_group_subject, decoded_subject)
+        data = await state.get_data()
+        words = data['words']
+        definitions = data['definitions']
         if action == "prev":
             page = max(page - 1, 0)
         elif action == "next":
             page = min(page + 1, len(words) - 1)
 
-        paginator = await create_word_paginator(table_name, group_subject, subject)
+        paginator = await create_word_paginator(table_name, group_subject, subject, state)
 
         with suppress(TelegramBadRequest):
             await call.message.edit_text(

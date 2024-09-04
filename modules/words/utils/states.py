@@ -13,3 +13,7 @@ class WordState(StatesGroup):
     """
     eng_word = State()
     ukr_word = State()
+
+class PaginationWord(StatesGroup):
+    words = State()
+    definition = State()

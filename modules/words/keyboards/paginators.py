@@ -1,4 +1,5 @@
 from aiogram.filters.callback_data import CallbackData
+from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
@@ -78,15 +79,15 @@ async def create_subject_paginator(table_name: str, group_subject: str):
 
     return subject_paginator
 
-async def create_word_paginator(table_name: str, group_subject: str, subject: str):
+async def create_word_paginator(table_name: str, group_subject: str, subject: str, state: FSMContext):
     encoded_table_name = table_name
     decoded_table_name = decode_table(table_name)
     encoded_group_subject = group_subject
     decoded_group_subject = decode_group_subject(group_subject)
     encoded_subject = subject
     decoded_subject = decode_subject(subject)
-
-    words, definitions = await get_words(decoded_table_name, decoded_group_subject, decoded_subject)
+    data = await state.get_data()
+    words = data['words']
     def word_paginator(page: int = 0):
         builder = InlineKeyboardBuilder()
         builder.row(
