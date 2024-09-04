@@ -24,7 +24,7 @@ async def get_group_subjects(table_name: str):
         async with session.begin():
             result = await session.execute(stmt)
             group_subject_list = result.scalars().all()
-            return group_subject_list
+            return sorted(group_subject_list)
 
 
 async def get_subjects(table_name: str, group_subject: str):
@@ -36,8 +36,7 @@ async def get_subjects(table_name: str, group_subject: str):
         async with session.begin():
             result = await session.execute(stmt)
             subject_list = result.scalars().all()
-            print(subject_list)
-            return subject_list
+            return sorted(subject_list, key=lambda x: int(x.split('-')[0].strip()))
 
 
 async def get_words(table_name: str, group_subject: str, subject: str):
