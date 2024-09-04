@@ -1,12 +1,13 @@
 {
     "table": {
-        "e": "english by level",
+        "e": "english_by_level",
         "c": "collocations",
-        "t": "topic vocabulary",
-        "m": "most common",
+        "t": "topic_vocabulary",
+        "m": "most_common",
         "i": "ielts",
         "a": "adjectives",
-        "v": "verbs"
+        "v": "verbs",
+        "d": "adverbs"
     },
     "group": {
         "alw": "a1 level wordlist",

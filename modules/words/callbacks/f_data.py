@@ -6,8 +6,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
 from layers.functions.cb_decoder import decode_table, decode_group_subject
+from layers.functions.cb_encoder import encode_table
 from modules.words.data.data_retriever import get_group_subjects
-from modules.words.keyboards.paginators import create_subject_paginator, Pagination
+from modules.words.keyboards.paginators import create_group_subject_paginator, Pagination
 from modules.words.keyboards import inline
 
 router = Router()
@@ -49,7 +50,8 @@ async def word_tables(callback: CallbackQuery):
 @router.callback_query(F.data.startswith('group_subject:'))
 async def group_subject(callback: CallbackQuery):
     table_name = callback.data.split(':')[1]
-    paginator = await create_subject_paginator(table_name)
+    table_name = decode_table(table_name)
+    paginator = await create_group_subject_paginator(encode_table(table_name))
     await callback.message.edit_text("Оберіть тему:", reply_markup=paginator())
 
 

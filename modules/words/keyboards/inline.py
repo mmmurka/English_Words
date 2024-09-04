@@ -1,6 +1,8 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from layers.functions.cb_encoder import encode_table
+
 developers_kb = InlineKeyboardMarkup(
     inline_keyboard=[
         [
@@ -37,14 +39,14 @@ profile_kb = InlineKeyboardMarkup(
 def word_tables_kb():
     builder = InlineKeyboardBuilder()
     builder.row(
-        InlineKeyboardButton(text='English By Level', callback_data='group_subject:english_by_level'),
-        InlineKeyboardButton(text='Verbs', callback_data='group_subject:verbs'),
-        InlineKeyboardButton(text='Topic Vocabulary', callback_data='group_subject:topic_vocabulary'),
-        InlineKeyboardButton(text='Adverbs', callback_data='group_subject:adverbs'),
-        InlineKeyboardButton(text='Collocations', callback_data='group_subject:collocations'),
-        InlineKeyboardButton(text='Adjectives', callback_data='group_subject:adjectives'),
-        InlineKeyboardButton(text='Most Common', callback_data='group_subject:most_common'),
-        InlineKeyboardButton(text='IELTS', callback_data='group_subject:ielts'),
+        InlineKeyboardButton(text='English By Level', callback_data=f'group_subject:{encode_table('english_by_level')}'),
+        InlineKeyboardButton(text='Verbs', callback_data=f'group_subject:{encode_table('verbs')}'),
+        InlineKeyboardButton(text='Topic Vocabulary', callback_data=f'group_subject:{encode_table('topic_vocabulary')}'),
+        InlineKeyboardButton(text='Adverbs', callback_data=f'group_subject:{encode_table('adverbs')}'),
+        InlineKeyboardButton(text='Collocations', callback_data=f'group_subject:{encode_table('collocations')}'),
+        InlineKeyboardButton(text='Adjectives', callback_data=f'group_subject:{encode_table('adjectives')}'),
+        InlineKeyboardButton(text='Most Common', callback_data=f'group_subject:{encode_table('most_common')}'),
+        InlineKeyboardButton(text='IELTS', callback_data=f'group_subject:{encode_table('ielts')}'),
         InlineKeyboardButton(text='Назад', callback_data='back'),
         width=2)
     return builder.as_markup()
