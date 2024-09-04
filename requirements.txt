@@ -31,3 +31,4 @@ virtualenv==20.24.5
 python-dotenv==1.0.1
 greenlet==3.0.3
 alembic==1.13.2
+pre-commit

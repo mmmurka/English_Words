@@ -49,6 +49,7 @@ docs/_build/
 venv/
 ENV/
 .env
+.env.test
 
 # JetBrains
 .idea/
