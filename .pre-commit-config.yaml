@@ -1,0 +1,16 @@
+
+minimum_pre_commit_version: "2.9.3"
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-merge-conflict
+
+  - repo: https://github.com/psf/black
+    rev: 23.1a1
+    hooks:
+      - id: black

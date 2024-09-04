@@ -16,14 +16,13 @@ async def create_user(tg_user_id: int, name: str, username: str, engine_session=
             existing_user = result.scalar()
 
             if existing_user:
-                logging.info(f'User {name} already exists in the database.')
-                await session.rollback()
+                logging.info(f"User {name} already exists in the database.")
             else:
                 user = User(id=tg_user_id, name=name, username=username)
                 session.add(user)
                 await session.commit()
-                logging.info(f'User {name} with ID {tg_user_id} added to the database.')
+                logging.info(f"User {name} with ID {tg_user_id} added to the database.")
         except Exception as e:
             await session.rollback()
-            logging.error(f'Error occurred: {e}')
+            logging.error(f"Error occurred: {e}")
             raise
