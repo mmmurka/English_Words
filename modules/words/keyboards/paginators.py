@@ -3,14 +3,16 @@ from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from layers.functions.cb_decoder import decode_table
-from layers.functions.cb_encoder import encode_table, encode_group_subject
+from layers.functions.cb_encoder import encode_group_subject, encode_subject
+from layers.functions.common import normalize_list
 # from layers.functions.cb_encoder import encode_table, encode_group_subject
-from modules.words.data.data_retriever import get_group_subjects
+from modules.words.data.data_retriever import get_group_subjects, get_subjects
 
 
 class Pagination(CallbackData, prefix="pag"):
     action: str
     page: int
+    type_of_pagination: str
     table_name: str
     group_subject: str or list[str] = None
     subject: str = None
@@ -23,15 +25,15 @@ async def create_group_subject_paginator(table_name: str):
     groups_of_subject = list(map(lambda x: x.capitalize(), groups_of_subject))
     count_groups = len(groups_of_subject)
     if count_groups > 10:
-        groups_of_subject = [groups_of_subject[i:i + 10] for i in range(0, len(groups_of_subject), 10)]
+        groups_of_subject = normalize_list(groups_of_subject)
     def group_subject_paginator(page: int = 0):
         builder = InlineKeyboardBuilder()
         if count_groups > 10:
             [builder.button(text=group_subject, callback_data=f'subjects:{encoded_table_name}:{encode_group_subject(group_subject)}') for group_subject in groups_of_subject[page]]
             builder.adjust(1)
             builder.row(
-                InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, table_name=encoded_table_name).pack()),
-                InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, table_name=encoded_table_name).pack()),
+                InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page,type_of_pagination='gs', table_name=encoded_table_name).pack()),
+                InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, type_of_pagination='gs', table_name=encoded_table_name).pack()),
                 InlineKeyboardButton(text="Назад", callback_data='word_tables'),
                 width=2)
 
@@ -43,3 +45,31 @@ async def create_group_subject_paginator(table_name: str):
         return builder.as_markup()
 
     return group_subject_paginator
+
+async def create_subject_paginator(table_name: str, group_subject: str):
+    encoded_table_name = table_name
+    decoded_table_name = decode_table(table_name)
+    encoded_group_subject = encode_group_subject(group_subject)
+    decoded_group_subject = decode_table(group_subject)
+    subjects = await get_subjects(decoded_table_name, decoded_group_subject)
+    count_subjects = len(subjects)
+    if count_subjects > 10:
+        subjects = normalize_list(subjects)
+
+    def subject_paginator(page: int = 0):
+        builder = InlineKeyboardBuilder()
+        if count_subjects > 10:
+            [builder.button(text=subject, callback_data=f'subject:{encoded_table_name}:{encoded_group_subject}:{encode_subject(subject)}') for subject in subjects[page]]
+            builder.adjust(1)
+            builder.row(
+                InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, table_name=encoded_table_name, group_subject=encoded_group_subject).pack()),
+                InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, table_name=encoded_table_name, group_subject=encoded_group_subject).pack()),
+                InlineKeyboardButton(text="Назад", callback_data='word_tables'),
+                width=2)
+
+        else:
+            [builder.button(text=subject, callback_data=f'subject:{encoded_table_name}:{encoded_group_subject}:{subject}') for subject in subjects]
+            builder.button(text="Назад", callback_data='word_tables')
+            builder.adjust(1)
+
+        return builder.as_markup()
