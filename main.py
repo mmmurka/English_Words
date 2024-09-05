@@ -8,9 +8,8 @@ import fasteners
 import os
 from dotenv import load_dotenv
 
-from modules.english_words.handlers import questionaire
-from modules.english_words.handlers import user_commands, bot_messages
-from modules.english_words.callbacks import pagination, greeting
+from modules.words.handlers import bot_messages, user_commands, pagination_handlers
+from modules.words.callbacks import f_data
 
 lock = fasteners.InterProcessLock(lock_path)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",)
@@ -18,15 +17,14 @@ load_dotenv()
 
 
 async def main():
-    bot = Bot(os.getenv('TELEGRAM_TOKEN'), parse_mode='HTML')
+    bot = Bot(os.getenv('TELEGRAM_TOKEN'))
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_routers(
-        user_commands.router,
-        pagination.router,
-        questionaire.router,
+        pagination_handlers.router,
+    user_commands.router,
         bot_messages.router,
-        greeting.router
+        f_data.router
     )
 
     with lock:

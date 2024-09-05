@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import User
+from layers.database.models import User
 from sqlalchemy.future import select
-import models as db_models
+import layers.database.models as db_models
 from layers.database.controller.database_module import engine
 import logging
 

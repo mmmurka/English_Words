@@ -1,4 +1,4 @@
-from models import DynamicTable
+from layers.database.models import DynamicTable
 
 
 def create_table_class(tablename, extend_existing=True):
