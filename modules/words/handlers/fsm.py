@@ -3,8 +3,8 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
 from modules.words.utils.states import WordState
-from modules.english_words.keyboards.inline import translate_kb as tr
-from modules.english_words.keyboards.inline import translate as tran
+from modules.words.keyboards.inline import translate_kb as tr
+from modules.words.keyboards.inline import translate as tran
 
 from layers.translate_api.translateAPI import trans_text
 
@@ -18,9 +18,9 @@ async def form_name(message: Message, state: FSMContext):
     data = await state.get_data()
     await state.clear()
 
-    word = data.get('word')
+    word = data.get("word")
 
-    translation_result = await trans_text(text=word, src='en', dest='uk')
+    translation_result = await trans_text(text=word, src="en", dest="uk")
 
     await message.answer(translation_result, reply_markup=tr)
 
@@ -31,10 +31,8 @@ async def form_slovo(message: Message, state: FSMContext):
     data = await state.get_data()
     await state.clear()
 
-    slovo = data.get('slovo')
+    slovo = data.get("slovo")
 
-    translation_result = await trans_text(text=slovo, src='uk', dest='en')
+    translation_result = await trans_text(text=slovo, src="uk", dest="en")
 
     await message.answer(translation_result, reply_markup=tran)
-
-router.message(Form)
