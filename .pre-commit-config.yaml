@@ -9,8 +9,3 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-merge-conflict
-
-  - repo: https://github.com/psf/black
-    rev: 23.1a1
-    hooks:
-      - id: black

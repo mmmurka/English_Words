@@ -11,8 +11,10 @@ class WordState(StatesGroup):
     Using FSM helps organize the logic of user interactions, allowing the bot to track which stage of the dialogue
     the user is in and what actions should be performed next.
     """
+
     eng_word = State()
     ukr_word = State()
+
 
 class PaginationWord(StatesGroup):
     words = State()
