@@ -114,7 +114,7 @@ async def create_word_paginator(table_name: str, group_subject: str, subject: st
                                                                      table_name=encoded_table_name,
                                                                      group_subject=encoded_group_subject,
                                                                      subject=encoded_subject).pack()),
-            InlineKeyboardButton(text="➕", callback_data=None),
+            InlineKeyboardButton(text="➕", callback_data='None'),
             InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, type_of_pagination='w',
                                                                      table_name=encoded_table_name,
                                                                      group_subject=encoded_group_subject,
