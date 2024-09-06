@@ -7,6 +7,7 @@ from layers.functions.cb_decoder import (
     decode_group_subject,
     decode_subject,
 )
+from layers.functions.common import shuffle_words
 from modules.words.data.data_retriever import get_words
 from modules.words.keyboards.paginators import (
     create_group_subject_paginator,
@@ -87,6 +88,7 @@ async def words(callback: CallbackQuery, state: FSMContext):
         decode_group_subject(group_subject),
         decode_subject(subject),
     )
+    words, definitions = shuffle_words(words, definitions)
     await state.update_data(words=words, definitions=definitions)
     paginator = await create_word_paginator(table_name, group_subject, subject, state)
     await callback.message.edit_text(
