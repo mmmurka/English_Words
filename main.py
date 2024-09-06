@@ -22,7 +22,7 @@ async def main():
 
     dp.include_routers(
         pagination_handlers.router,
-    user_commands.router,
+        user_commands.router,
         bot_messages.router,
         f_data.router
     )

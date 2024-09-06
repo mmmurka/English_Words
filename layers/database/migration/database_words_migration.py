@@ -18,12 +18,14 @@ Base = declarative_base()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db = SessionLocal()
 
+
 # Функция нормализации строки
 def normalize_string(s):
     return ' '.join(s.split()).strip()
 
+
 if __name__ == '__main__':
-    with open('modules/words/data/words_list.json', 'r') as outfile:
+    with open('../data/words_list.json', 'r') as outfile:
         words_list = json.load(outfile)
         for group, dicti in words_list.items():
             class_name = f"Word_{normalize_string(group).capitalize().replace(' ', '_')}"

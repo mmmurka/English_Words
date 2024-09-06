@@ -21,6 +21,7 @@ from modules.words.keyboards.paginators import (
     create_subject_paginator,
     create_word_paginator,
 )
+from layers.translate_api.translateAPI import trans_text
 
 router = Router()
 
@@ -49,7 +50,7 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
         with suppress(TelegramBadRequest):
             await call.message.edit_text(f"Оберіть тему:", reply_markup=paginator(page))
 
-    elif type_of_pagination == "s":
+    elif type_of_pagination == "s":  # subjects
         try:
             group_subject = data_parts[5]
             decoded_group_subject = decode_group_subject(group_subject)
@@ -68,12 +69,14 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
 
         with suppress(TelegramBadRequest):
             await call.message.edit_text(f"Оберіть тему:", reply_markup=paginator(page))
-    elif type_of_pagination == "w":
+    elif type_of_pagination == "w":  # words
         try:
             group_subject = data_parts[5]
             subject = data_parts[6]
         except IndexError:
             raise IndexError("Не передано назву теми")
+
+
 
         # words, definitions = await get_words(decoded_table_name, decoded_group_subject, decoded_subject)
         data = await state.get_data()
@@ -93,3 +96,12 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
                 f"{words[page]} - {definitions[page]}", reply_markup=paginator(page)
             )
         await call.answer()
+
+        if action == "trans":
+            result_translate = await trans_text(text=words[page] + " - " + definitions[page], src='en', dest='uk')
+            with suppress(TelegramBadRequest):
+                await call.message.edit_text(
+                    f"{words[page]} - {definitions[page]}\n\n\n{result_translate}",
+                    reply_markup=paginator(page)
+                )
+            await call.answer()
