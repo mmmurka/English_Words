@@ -63,23 +63,43 @@ async def word_tables(callback: CallbackQuery):
 
 
 @router.callback_query(F.data.startswith("group_subject:"))
-async def group_subject(callback: CallbackQuery):
+async def group_subject_fdata(callback: CallbackQuery):
+    try:
+        gs_page = int(callback.data.split(":")[2])
+    except IndexError:
+        gs_page = 0
     table_name = callback.data.split(":")[1]
     paginator = await create_group_subject_paginator(table_name)
-    await callback.message.edit_text("Оберіть тему:", reply_markup=paginator())
+    await callback.message.edit_text("Оберіть тему:", reply_markup=paginator(gs_page))
 
 
 @router.callback_query(F.data.startswith("subjects:"))
-async def subjects(callback: CallbackQuery, state: FSMContext):
+async def subjects_fdata(callback: CallbackQuery, state: FSMContext):
     await state.clear()
+    try:
+        gs_page = int(callback.data.split(":")[3])
+    except IndexError:
+        gs_page = 0
+    try:
+        s_page = int(callback.data.split(":")[4])
+    except IndexError:
+        s_page = 0
     table_name = callback.data.split(":")[1]
     group_subject = callback.data.split(":")[2]
-    paginator = await create_subject_paginator(table_name, group_subject)
-    await callback.message.edit_text("Оберіть тему:", reply_markup=paginator())
+    paginator = await create_subject_paginator(table_name, group_subject, gs_page)
+    await callback.message.edit_text("Оберіть тему:", reply_markup=paginator(s_page))
 
 
 @router.callback_query(F.data.startswith("words:"))
-async def words(callback: CallbackQuery, state: FSMContext):
+async def words_fdata(callback: CallbackQuery, state: FSMContext):
+    try:
+        gs_page = int(callback.data.split(":")[4])
+    except IndexError:
+        gs_page = 0
+    try:
+        s_page = int(callback.data.split(":")[5])
+    except IndexError:
+        s_page = 0
     table_name = callback.data.split(":")[1]
     group_subject = callback.data.split(":")[2]
     subject = callback.data.split(":")[3]
@@ -90,7 +110,7 @@ async def words(callback: CallbackQuery, state: FSMContext):
     )
     words, definitions = shuffle_words(words, definitions)
     await state.update_data(words=words, definitions=definitions)
-    paginator = await create_word_paginator(table_name, group_subject, subject, state)
+    paginator = await create_word_paginator(table_name, group_subject, subject, state, gs_page, s_page)
     await callback.message.edit_text(
         f"{words[0]} - {definitions[0]}", reply_markup=paginator()
     )

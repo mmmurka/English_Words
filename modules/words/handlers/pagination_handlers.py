@@ -35,6 +35,8 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
     page = int(data_parts[2])
     type_of_pagination = data_parts[3]
     table_name = data_parts[4]
+    gs_page = int(data_parts[7])
+    s_page = int(data_parts[8])
     decoded_table_name = decode_table(table_name)
     if type_of_pagination == "gs":
         groups_of_subject = await get_group_subjects(decoded_table_name)
@@ -65,7 +67,7 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
         elif action == "next":
             page = min(page + 1, len(subjects) - 1)
 
-        paginator = await create_subject_paginator(table_name, group_subject)
+        paginator = await create_subject_paginator(table_name, group_subject, gs_page)
 
         with suppress(TelegramBadRequest):
             await call.message.edit_text(f"Оберіть тему:", reply_markup=paginator(page))
@@ -88,7 +90,7 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
             page = min(page + 1, len(words) - 1)
 
         paginator = await create_word_paginator(
-            table_name, group_subject, subject, state
+            table_name, group_subject, subject, state, gs_page, s_page
         )
 
         with suppress(TelegramBadRequest):
