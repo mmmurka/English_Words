@@ -63,7 +63,7 @@ async def word_tables(callback: CallbackQuery):
 
 
 @router.callback_query(F.data.startswith("group_subject:"))
-async def group_subject(callback: CallbackQuery):
+async def group_subject_fdata(callback: CallbackQuery):
     try:
         gs_page = int(callback.data.split(":")[2])
     except IndexError:
@@ -74,7 +74,7 @@ async def group_subject(callback: CallbackQuery):
 
 
 @router.callback_query(F.data.startswith("subjects:"))
-async def subjects(callback: CallbackQuery, state: FSMContext):
+async def subjects_fdata(callback: CallbackQuery, state: FSMContext):
     await state.clear()
     try:
         gs_page = int(callback.data.split(":")[3])
@@ -91,7 +91,7 @@ async def subjects(callback: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(F.data.startswith("words:"))
-async def words(callback: CallbackQuery, state: FSMContext):
+async def words_fdata(callback: CallbackQuery, state: FSMContext):
     try:
         gs_page = int(callback.data.split(":")[4])
     except IndexError:
