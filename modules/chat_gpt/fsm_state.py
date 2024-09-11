@@ -1,5 +1,4 @@
 from contextlib import suppress
-
 from aiogram import types
 from aiogram.exceptions import TelegramBadRequest
 from aiogram.fsm.context import FSMContext
@@ -9,7 +8,6 @@ from aiogram.filters import StateFilter
 from modules.chat_gpt.chat_api import ChatGPT
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from layers.translate_api.translateAPI import trans_text
-
 
 router = Router()
 Chat_gpt = ChatGPT()
@@ -21,8 +19,7 @@ class ChatGPTState(StatesGroup):
 
 @router.callback_query(F.data == "profile")
 async def profile(callback: CallbackQuery, state: FSMContext) -> None:
-    await callback.message.edit_text("Ваш профіль")
-    await callback.message.reply("nemsh gavnoed!")
+    await callback.message.edit_text("Почни спілкування з вчителем прямо зараз!")
     await state.set_state(ChatGPTState.waiting_for_message)
 
 
@@ -31,26 +28,26 @@ async def chat_with_gpt(message: types.Message, state: FSMContext):
     user_message = message.text
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Перевести", callback_data="translate")]
+        [InlineKeyboardButton(text="🇺🇦", callback_data="translate")]
     ])
-    # Получаем ответ от ChatGPT
-    global gpt_reply
     gpt_reply = await Chat_gpt.get_response(user_message)
 
-    # Отправляем ответ пользователю
-    await message.reply(gpt_reply, reply_markup=keyboard)
+    await state.update_data(gpt_reply=gpt_reply)
 
-    # Оставляем состояние ожидания текстового сообщения
+    await message.reply(gpt_reply, reply_markup=keyboard)
     await state.set_state(ChatGPTState.waiting_for_message)
 
 
 @router.callback_query(F.data == "translate")
 async def button_translate(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    original_text = data.get("gpt_reply")
+    gpt_reply = data.get("gpt_reply", "")
 
-    translated_text = await trans_text(text=original_text, src='en', dest='uk')
+    if gpt_reply:
+        translated_text = await trans_text(text=gpt_reply, src='en', dest='uk')
 
-    with suppress(TelegramBadRequest):
-        await callback.message.edit_text(translated_text)
-    await callback.answer()
+        with suppress(TelegramBadRequest):
+            await callback.message.edit_text(translated_text)
+        await callback.answer()
+    else:
+        await callback.answer("No text to translate", show_alert=True)

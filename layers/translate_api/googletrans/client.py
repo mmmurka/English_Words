@@ -26,6 +26,7 @@ EXCLUDES = ('en', 'ca', 'fr')
 
 RPC_ID = 'MkEWBc'
 
+
 class Translator:
     """Google Translate ajax API implementation class
 
@@ -80,7 +81,7 @@ class Translator:
             self.client_type = 'gtx'
             pass
         else:
-            #default way of working: use the defined values from user app
+            # default way of working: use the defined values from user app
             self.service_urls = service_urls
             self.client_type = 'tw-ob'
             self.token_acquirer = TokenAcquirer(
@@ -92,7 +93,7 @@ class Translator:
         return json.dumps([[
             [
                 RPC_ID,
-                json.dumps([[text, src, dest, True],[None]], separators=(',', ':')),
+                json.dumps([[text, src, dest, True], [None]], separators=(',', ':')),
                 None,
                 'generic',
             ],
@@ -125,7 +126,7 @@ class Translator:
         return r.text, r
 
     def _translate_legacy(self, text, dest, src, override):
-        token = '' #dummy default value here as it is not used by api client
+        token = ''  # dummy default value here as it is not used by api client
         if self.client_type == 'webapp':
             token = self.token_acquirer.do(text)
 
@@ -165,7 +166,7 @@ class Translator:
 
         for index, category in response_parts_name_mapping.items():
             extra[category] = data[index] if (
-                index < len(data) and data[index]) else None
+                    index < len(data) and data[index]) else None
 
         return extra
 
@@ -218,7 +219,8 @@ class Translator:
         parsed = json.loads(data[0][2])
         # not sure
         should_spacing = parsed[1][0][0][3]
-        translated_parts = list(map(lambda part: TranslatedPart(part[0], part[1] if len(part) >= 2 else []), parsed[1][0][0][5]))
+        translated_parts = list(
+            map(lambda part: TranslatedPart(part[0], part[1] if len(part) >= 2 else []), parsed[1][0][0][5]))
         translated = (' ' if should_spacing else '').join(map(lambda part: part.text, translated_parts))
 
         if src == 'auto':
@@ -259,7 +261,6 @@ class Translator:
                             extra_data=extra_data,
                             response=response)
         return result
-
 
     def translate_legacy(self, text, dest='en', src='auto', **kwargs):
         """Translate text from source language to destination language
@@ -366,7 +367,8 @@ class Translator:
 
     def detect(self, text: str):
         translated = self.translate(text, src='auto', dest='en')
-        result = Detected(lang=translated.src, confidence=translated.extra_data.get('confidence', None), response=translated._response)
+        result = Detected(lang=translated.src, confidence=translated.extra_data.get('confidence', None),
+                          response=translated._response)
         return result
 
     def detect_legacy(self, text, **kwargs):

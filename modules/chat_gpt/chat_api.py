@@ -7,7 +7,8 @@ from openai import AsyncOpenAI
 class ChatGPT:
     def __init__(self, role: str = "You are an English teacher assisting users in learning English,"
                                    " answering their questions, correcting their mistakes,"
-                                   " and providing encouragement and additional learning resources."):
+                                   " and providing encouragement and additional learning resources,"
+                                   " my native language is English."):
         self.api_key = os.getenv('OPENAI_API_KEY')
         openai.api_key = self.api_key
         self.role = role
