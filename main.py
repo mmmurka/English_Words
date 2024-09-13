@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 from modules.words.handlers import bot_messages, user_commands, pagination_handlers
 from modules.words.callbacks import f_data
+from modules.chat_gpt import chat_callbacks, message
 
 lock = fasteners.InterProcessLock(lock_path)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",)
@@ -24,7 +25,9 @@ async def main():
         pagination_handlers.router,
         user_commands.router,
         bot_messages.router,
-        f_data.router
+        f_data.router,
+        chat_callbacks.router,
+        message.router,
     )
 
     with lock:
