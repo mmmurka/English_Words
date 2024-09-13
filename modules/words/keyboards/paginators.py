@@ -100,33 +100,25 @@ async def create_subject_paginator(table_name: str, group_subject: str):
     return subject_paginator
 
 
-async def create_word_paginator(table_name: str, group_subject: str, subject: str, state: FSMContext):
+async def create_word_paginator(table_name: str, group_subject: str, subject: str, state: FSMContext, gs_page: int, s_page: int):
     encoded_table_name = table_name
     encoded_group_subject = group_subject
     encoded_subject = subject
     data = await state.get_data()
-
-    def word_paginator(page: int = 0):
+    words = data['words']
+    def word_paginator_cb(page: int = 0):
         builder = InlineKeyboardBuilder()
-
         builder.row(
-            InlineKeyboardButton(text="🇺🇦", callback_data=Pagination(action="trans", page=page, type_of_pagination='w',
-                                                                     table_name=encoded_table_name,
-                                                                     group_subject=encoded_group_subject,
-                                                                     subject=encoded_subject).pack()),
-            InlineKeyboardButton(text="➕", callback_data='None'),
             InlineKeyboardButton(text="⬅️", callback_data=Pagination(action="prev", page=page, type_of_pagination='w',
                                                                      table_name=encoded_table_name,
-                                                                     group_subject=encoded_group_subject,
-                                                                     subject=encoded_subject).pack()),
+                                                                     group_subject=encoded_group_subject, subject=encoded_subject, gs_page=gs_page, s_page=s_page).pack()),
+            InlineKeyboardButton(text=f'{page + 1}/{len(words)}', callback_data='None'),
             InlineKeyboardButton(text="➡️", callback_data=Pagination(action="next", page=page, type_of_pagination='w',
                                                                      table_name=encoded_table_name,
-                                                                     group_subject=encoded_group_subject,
-                                                                     subject=encoded_subject).pack()),
-            InlineKeyboardButton(text="Назад", callback_data=f'subjects:{encoded_table_name}:{encoded_group_subject}'),
-            width=2,
-            )
+                                                                     group_subject=encoded_group_subject, subject=encoded_subject, gs_page=gs_page, s_page=s_page).pack()),
+            InlineKeyboardButton(text="Назад", callback_data=f'subjects:{encoded_table_name}:{encoded_group_subject}:{gs_page}:{s_page}'),
+            width=3)
 
         return builder.as_markup()
 
-    return word_paginator
+    return word_paginator_cb
