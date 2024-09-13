@@ -34,4 +34,3 @@ pre-commit
 openai==1.44.0
 httpx==0.27.2
 httpcore==1.0.5
-deep_translator==1.11.4
