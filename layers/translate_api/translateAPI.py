@@ -2,7 +2,7 @@ from googletrans import Translator
 import logging
 
 
-async def trans_text(text='text', src='en', dest='uk'):
+async def trans_text(text='text', src='en', dest='uk') -> str | Exception:
     try:
         translator = Translator()
         translation = translator.translate(text=text, src=src, dest=dest)

@@ -12,10 +12,10 @@ class WordState(StatesGroup):
     the user is in and what actions should be performed next.
     """
 
-    eng_word = State()
-    ukr_word = State()
+    eng_word: str = State()
+    ukr_word: str = State()
 
 
 class PaginationWord(StatesGroup):
-    words = State()
-    definition = State()
+    words: str = State()
+    definition: str = State()

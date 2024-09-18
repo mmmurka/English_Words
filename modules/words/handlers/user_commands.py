@@ -10,9 +10,9 @@ router = Router()
 
 @router.message(CommandStart())
 async def start(message: Message):
-    tg_user_id = message.from_user.id
-    name = message.from_user.first_name
-    username = message.from_user.username
+    tg_user_id: int = message.from_user.id
+    name: str = message.from_user.first_name
+    username: str = message.from_user.username
 
     await create_user(tg_user_id, name, username)
 
