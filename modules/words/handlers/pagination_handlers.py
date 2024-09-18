@@ -5,17 +5,11 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery
 
-from layers.functions.cb_decoder import (
-    decode_table,
-    decode_group_subject,
-    decode_subject,
-)
+from layers.functions.cb_decoder import decode_table, decode_group_subject
+
 from layers.functions.common import normalize_list
-from modules.words.data.data_retriever import (
-    get_group_subjects,
-    get_subjects,
-    get_words,
-)
+from modules.words.data.data_retriever import get_group_subjects, get_subjects
+
 from modules.words.keyboards.paginators import (
     create_group_subject_paginator,
     create_subject_paginator,
