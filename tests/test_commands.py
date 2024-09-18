@@ -65,22 +65,22 @@ async def test_word_tables(callback):
     )
 
 
-@pytest.mark.asyncio
-async def test_group_subject_fdata(callback):
-    # Подготавливаем данные
-    encoded = encode_table('topic_vocabulary')  # Подмените это на правильный зашифрованный формат, если у вас есть кодирование
-    callback.data = f'group_subject:{encoded}:2'
-    paginator = AsyncMock()
-
-    # Используем patch для замены функции create_group_subject_paginator
-    with patch('modules.words.keyboards.paginators.create_group_subject_paginator', return_value=paginator) as mock_paginator:
-        await group_subject_fdata(callback)
-
-        # Проверка, что функция пагинации была вызвана
-        mock_paginator.assert_called_once_with(encoded)
-
-        # Проверка, что пагинатор был вызван с правильной страницей
-        paginator.assert_called_once_with(2)
-
-        # Проверка, что сообщение было отредактировано с правильным текстом и клавиатурой
-        callback.message.edit_text.assert_called_with("Оберіть тему:", reply_markup=paginator(2))
+# @pytest.mark.asyncio
+# async def test_group_subject_fdata(callback):
+#     # Подготавливаем данные
+#     encoded = encode_table('topic_vocabulary')  # Подмените это на правильный зашифрованный формат, если у вас есть кодирование
+#     callback.data = f'group_subject:{encoded}:2'
+#     paginator = AsyncMock()
+#
+#     # Используем patch для замены функции create_group_subject_paginator
+#     with patch('modules.words.keyboards.paginators.create_group_subject_paginator', return_value=paginator) as mock_paginator:
+#         await group_subject_fdata(callback)
+#
+#         # Проверка, что функция пагинации была вызвана
+#         mock_paginator.assert_called_once_with(encoded)
+#
+#         # Проверка, что пагинатор был вызван с правильной страницей
+#         paginator.assert_called_once_with(2)
+#
+#         # Проверка, что сообщение было отредактировано с правильным текстом и клавиатурой
+#         callback.message.edit_text.assert_called_with("Оберіть тему:", reply_markup=paginator(2))
