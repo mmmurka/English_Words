@@ -49,11 +49,6 @@ async def button_back(callback: CallbackQuery, state: FSMContext):
     )
 
 
-# @router.callback_query(F.data == "profile")
-# async def profile(callback: CallbackQuery) -> None:
-#     await callback.message.edit_text("Ваш профіль", reply_markup=inline.profile_kb)
-
-
 @router.callback_query(F.data == "word_tables")
 async def word_tables(callback: CallbackQuery):
     await callback.message.edit_text(

@@ -28,11 +28,10 @@ router = Router()
 
 @router.callback_query(F.data.startswith("pag:"))
 async def handle_pagination(call: CallbackQuery, state: FSMContext):
-    # Разбиваем данные на части
 
-    data_parts = call.data.split(":")
-    action = data_parts[1]  # "next" или "prev"
-    page = int(data_parts[2])
+    data_parts: list = call.data.split(":")  # Breaking data into parts
+    action: str = data_parts[1]  # "next" or "prev"
+    page: int = int(data_parts[2])
     type_of_pagination = data_parts[3]
     table_name = data_parts[4]
     gs_page = int(data_parts[7])
@@ -59,8 +58,8 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
         except IndexError:
             raise IndexError("Не передано назву теми")
 
-        subjects = await get_subjects(decoded_table_name, decoded_group_subject)
-        subjects = normalize_list(subjects)
+        subjects: list = await get_subjects(decoded_table_name, decoded_group_subject)
+        subjects: list = normalize_list(subjects)
         # Обрабатываем "prev" и "next"
         if action == "prev":
             page = max(page - 1, 0)
@@ -81,9 +80,9 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
 
 
         # words, definitions = await get_words(decoded_table_name, decoded_group_subject, decoded_subject)
-        data = await state.get_data()
-        words = data["words"]
-        definitions = data["definitions"]
+        data: dict = await state.get_data()
+        words: str = data["words"]
+        definitions: str = data["definitions"]
         if action == "prev":
             page = max(page - 1, 0)
         elif action == "next":
