@@ -10,10 +10,10 @@ class ChatGPT:
                                    " and providing encouragement and additional learning resources,"
                                    " my native language is ukrainian,"
                                    "and use emojis."):
-        self.api_key = os.getenv('OPENAI_API_KEY')
+        self.api_key: str = os.getenv('OPENAI_API_KEY')
         openai.api_key = self.api_key
-        self.role = role
-        self.client = AsyncOpenAI()
+        self.role: str = role
+        self.client: AsyncOpenAI = AsyncOpenAI()
 
     async def get_response(self, user_message: str) -> str:
         completion = await self.client.chat.completions.create(

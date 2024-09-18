@@ -49,11 +49,6 @@ async def button_back(callback: CallbackQuery, state: FSMContext):
     )
 
 
-# @router.callback_query(F.data == "profile")
-# async def profile(callback: CallbackQuery) -> None:
-#     await callback.message.edit_text("Ваш профіль", reply_markup=inline.profile_kb)
-
-
 @router.callback_query(F.data == "word_tables")
 async def word_tables(callback: CallbackQuery):
     await callback.message.edit_text(
@@ -80,9 +75,9 @@ async def subjects(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data.startswith("words:"))
 async def words(callback: CallbackQuery, state: FSMContext):
-    table_name = callback.data.split(":")[1]
-    group_subject = callback.data.split(":")[2]
-    subject = callback.data.split(":")[3]
+    table_name: str = callback.data.split(":")[1]
+    group_subject: str = callback.data.split(":")[2]
+    subject: str = callback.data.split(":")[3]
     words, definitions = await get_words(
         decode_table(table_name),
         decode_group_subject(group_subject),
