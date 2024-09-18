@@ -49,7 +49,8 @@ async def get_words(table_name: str, group_subject: str, subject: str):
     TableClass = await get_dynamic_table_class(table_name)
     stmt_word = select(TableClass.word).where(TableClass.group_subject == group_subject,
                                               TableClass.subject == subject)
-    stmt_definition = select(TableClass.definition).where(TableClass.group_subject == group_subject, TableClass.subject == subject)
+    stmt_definition = select(TableClass.definition).where(TableClass.group_subject == group_subject,
+                                                          TableClass.subject == subject)
     async with AsyncSession(db.engine) as session:
         async with session.begin():
             words_result = await session.execute(stmt_word)
