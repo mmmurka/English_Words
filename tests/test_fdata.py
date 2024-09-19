@@ -39,11 +39,13 @@ async def setup_db(async_session):
         await async_session.rollback()
         await async_session.close()  # Явно закрываем сессию
 
+
 @pytest.fixture(scope="session")
 def event_loop():
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
+
 
 @pytest.fixture
 async def async_session():
@@ -128,7 +130,7 @@ async def test_words_fdata(callback, state):
     encoded_group_subject = encode_group_subject('animals')
     encoded_subject = encode_subject('1 - large mammals')
 
-    callback.data = f'words:{encoded_table}:{encoded_group_subject}:{encoded_subject}:0:0:0'
+    callback.data = f'words:{encoded_table}:{encoded_group_subject}:{encoded_subject}:0:0'
 
     paginator = await create_word_paginator(encoded_table, encoded_group_subject, encoded_subject, state, 0, 0)
 
@@ -137,7 +139,7 @@ async def test_words_fdata(callback, state):
     words, definitions = await get_words(
         decode_table(encoded_table),
         decode_group_subject(encoded_group_subject),
-        decode_subject(encoded_subject),
+        decode_subject(encoded_subject)
     )
     words, definitions = shuffle_words(words, definitions)
 

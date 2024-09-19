@@ -46,8 +46,6 @@ async def get_subjects(table_name: str, group_subject: str):
 
 
 async def get_words(table_name: str, group_subject: str, subject: str):
-    group_subject = group_subject.replace('_', ' ')
-    subject = subject.replace('_', ' ')
     TableClass = await get_dynamic_table_class(table_name)
     stmt_word = select(TableClass.word).where(TableClass.group_subject == group_subject,
                                               TableClass.subject == subject)
