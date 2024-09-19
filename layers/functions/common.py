@@ -6,6 +6,7 @@ def normalize_list(lst):
 
 
 def shuffle_words(words, definitions):
+    random.seed(41)
     combined = list(zip(words, definitions))
     random.shuffle(combined)
 
