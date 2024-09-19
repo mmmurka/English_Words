@@ -11,7 +11,11 @@ async def test_get_response(mock_openai_client):
 
     mock_openai_client().chat.completions.create = AsyncMock(return_value=mock_completion)
 
-    chat_gpt = ChatGPT()
+    chat_gpt = ChatGPT(role="You are an English teacher assisting users in learning English,"
+                                   " answering their questions, correcting their mistakes,"
+                                   " and providing encouragement and additional learning resources,"
+                                   " my native language is ukrainian,"
+                                   "and use emojis.")
 
     response = await chat_gpt.get_response("What is the capital of France?")
 
