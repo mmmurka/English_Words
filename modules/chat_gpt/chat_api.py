@@ -6,7 +6,7 @@ from openai import AsyncOpenAI
 
 
 class ChatGPT:
-    def __init__(self, role: str):
+    def __init__(self, role: str = None):
         self.api_key: str = os.getenv('OPENAI_API_KEY')
         openai.api_key = self.api_key
         self.role: str = role

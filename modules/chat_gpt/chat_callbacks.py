@@ -6,7 +6,7 @@ from aiogram import Router, F
 from modules.chat_gpt.chat_api import ChatGPT
 from aiogram.types import CallbackQuery
 from layers.translate_api.translateAPI import trans_text
-from modules.chat_gpt.inline_keyboard import keyboard_en, keyboard_uk
+from modules.chat_gpt.inline_keyboard import keyboard_en, keyboard_uk, keyboard_main
 
 router = Router()
 Chat_gpt = ChatGPT()
@@ -14,8 +14,9 @@ Chat_gpt = ChatGPT()
 
 @router.callback_query(F.data == "profile")
 async def profile(callback: CallbackQuery, state: FSMContext) -> None:
-    await callback.message.edit_text("Почни спілкування з вчителем прямо зараз!")
-    await state.set_state(ChatGPTState.waiting_for_message)
+    await callback.message.edit_text("Оберіть необхідний пункт:", reply_markup=keyboard_main)
+
+    #await state.set_state(ChatGPTState.waiting_for_message)
 
 
 @router.callback_query(F.data == "translate_to_uk")
