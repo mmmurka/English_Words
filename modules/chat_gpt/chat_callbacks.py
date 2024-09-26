@@ -13,10 +13,8 @@ Chat_gpt = ChatGPT()
 
 
 @router.callback_query(F.data == "profile")
-async def profile(callback: CallbackQuery, state: FSMContext) -> None:
+async def profile(callback: CallbackQuery) -> None:
     await callback.message.edit_text("Оберіть необхідний пункт:", reply_markup=keyboard_main)
-
-    #await state.set_state(ChatGPTState.waiting_for_message)
 
 
 @router.callback_query(F.data == "translate_to_uk")
@@ -43,3 +41,8 @@ async def button_translate_to_en(callback: CallbackQuery, state: FSMContext):
     with suppress(TelegramBadRequest):
         await callback.message.edit_text(translated_text, reply_markup=keyboard_uk)
     await callback.answer()
+
+
+@router.callback_query(F.data == "test_english_level")
+async def test_english_level(callback: CallbackQuery, state: FSMContext):
+    await callback.message.edit_text("Тест рівня англійської 🇺🇸", reply_markup=keyboard_main)
