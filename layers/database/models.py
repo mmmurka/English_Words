@@ -29,7 +29,7 @@ class UserWord(Base):
 
 
 class DynamicTable(Base):
-    __abstract__ = True  # abstracts class
+    __abstract__ = True  # abstractstest class
 
     id = Column(BigInteger, primary_key=True)
     group_subject = Column(String, index=True)

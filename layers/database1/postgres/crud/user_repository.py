@@ -4,16 +4,17 @@ from sqlalchemy.exc import SQLAlchemyError
 import logging
 from layers.database.models import User
 from postgres.crud.repository import CRUDPostgresRepository
+from typing import Any, Coroutine, Callable
 
 logging.basicConfig(level=logging.INFO)
 
 
 class PostgresUserRepository(CRUDPostgresRepository):
-    def __init__(self, session_factory: AsyncSession):
+    def __init__(self, session_factory: Callable[[], Coroutine[Any, Any, AsyncSession]]):
         super().__init__(session_factory)
 
     async def create_user(self, tg_user_id: int, name: str, username: str):
-        async with self._session_factory as session:
+        async with await self._session_factory() as session:
             try:
                 # Search for an existing user
                 stmt = select(User).filter(User.id == tg_user_id)

@@ -5,6 +5,9 @@ import os
 from postgres.protocols.async_session import IAsyncSessionFactory
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from typing import Any, Optional
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class DBConfig:
@@ -29,13 +32,14 @@ class DBConfig:
     @staticmethod
     def getLocalConfig() -> DBConfig:
         return DBConfig(
-            engine=os.getenv("DB_ENGINE", "englishwords"),
-            host=os.getenv("DB_ENGINE"),
-            port=os.getenv("DB_PORT"),
+            engine=os.getenv("DB_ENGINE", "postgres"),
+            host=os.getenv("DB_HOST", "localhost"),
+            port=os.getenv("DB_PORT", 5432),
             username=os.getenv("DB_USER"),
             password=os.getenv('DB_PASSWORD'),
             dbName=os.getenv("DB_DATABASE"),
         )
+        # TODO настроить конфигурацию к бд-шке, проблема с тем что ретернит дбконфиг
 
 
 class DBManager(IAsyncSessionFactory[AsyncSession]):

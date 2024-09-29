@@ -1,17 +1,17 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from postgres.protocols.abstract_repository import IRepository
-from typing import Any, Type
+from typing import Any, Type, Callable, Coroutine
 from postgres.models import DynamicTable
 
 
 class CRUDPostgresRepository(IRepository[AsyncSession]):
-    def __init__(self, session_factory: AsyncSession):
+    def __init__(self, session_factory: Callable[[], Coroutine[Any, Any, AsyncSession]]):
         self._session_factory = session_factory
 
     @property
     async def async_session(self) -> AsyncSession:
-        return self._session_factory
+        return await self._session_factory()
 
     async def get_all(self, entity: Any):
         async with self.async_session as session:
