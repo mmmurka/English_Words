@@ -18,7 +18,7 @@ load_dotenv()
 
 
 async def main():
-    bot = Bot(os.getenv('TEST_TOKEN'))
+    bot = Bot(os.getenv('TELEGRAM_TOKEN'))
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_routers(

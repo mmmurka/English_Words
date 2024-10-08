@@ -7,7 +7,10 @@ from layers.functions.cb_decoder import decode_table, decode_group_subject
 from layers.functions.cb_encoder import encode_group_subject, encode_subject
 from layers.functions.common import normalize_list
 from modules.words.data.data_retriever import get_group_subjects, get_subjects
+from modules.words.data.repository import WordRepository
+from postgres.controller.database import DBManager
 
+repo = WordRepository(DBManager().getSession)
 
 class Pagination(CallbackData, prefix="pag"):
     action: str
@@ -23,7 +26,7 @@ class Pagination(CallbackData, prefix="pag"):
 async def create_group_subject_paginator(table_name: str):
     encoded_table_name: str = table_name
     decoded_table_name: str = decode_table(table_name)
-    groups_of_subject: list = await get_group_subjects(decoded_table_name)
+    groups_of_subject: list = await repo.get_group_subjects(decoded_table_name)
     groups_of_subject: list = list(map(lambda x: x.capitalize(), groups_of_subject))
     count_groups: int = len(groups_of_subject)
     if count_groups > 10:
@@ -67,7 +70,7 @@ async def create_subject_paginator(table_name: str, group_subject: str, gs_page:
     decoded_table_name: str = decode_table(table_name)
     encoded_group_subject: str = group_subject
     decoded_group_subject: str = decode_group_subject(group_subject)
-    subjects: list = await get_subjects(decoded_table_name, decoded_group_subject)
+    subjects: list = await repo.get_subjects(decoded_table_name, decoded_group_subject)
     subjects: list = list(map(lambda x: x.capitalize(), subjects))
     count_subjects: int = len(subjects)
     if count_subjects > 10:

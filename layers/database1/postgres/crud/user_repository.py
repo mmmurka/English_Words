@@ -4,13 +4,14 @@ from sqlalchemy.exc import SQLAlchemyError
 import logging
 from layers.database.models import User
 from postgres.crud.repository import CRUDPostgresRepository
-from typing import Any, Coroutine, Callable
+
+from postgres.sql.repository import SessionFactory
 
 logging.basicConfig(level=logging.INFO)
 
 
 class PostgresUserRepository(CRUDPostgresRepository):
-    def __init__(self, session_factory: Callable[[], Coroutine[Any, Any, AsyncSession]]):
+    def __init__(self, session_factory: SessionFactory):
         super().__init__(session_factory)
 
     async def create_user(self, tg_user_id: int, name: str, username: str):
