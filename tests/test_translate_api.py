@@ -67,5 +67,3 @@ async def test_trans_text_empty_text():
         mock_translator_instance.translate.assert_called_once_with(
             text="", src='en', dest='uk'
         )
-
-
