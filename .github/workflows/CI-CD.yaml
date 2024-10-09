@@ -46,11 +46,6 @@ jobs:
       run: |
         docker-compose -f docker-compose.yml build
 
-    - name: Push Docker Image to Registry
-      run: |
-        docker login -u ${{ secrets.root }} -p ${{ secrets.passwd }}
-        docker-compose push
-
   deploy:
     runs-on: ubuntu-latest
 
@@ -61,9 +56,9 @@ jobs:
     - name: Deploy to Server
       uses: appleboy/ssh-action@v0.1.4
       with:
-        host: ${{ secrets.185.253.218.8 }}
-        username: ${{ secrets.root }}
-        key: ${{ secrets.ssh_private }}
+        host: secrets.HOST
+        username: secrets.USERNAME
+        key: secrets.PRIVATE_KEY
         script: |
           cd /root
           docker-compose down
