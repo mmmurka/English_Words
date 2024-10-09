@@ -8,7 +8,6 @@ from aiogram.types import CallbackQuery
 from layers.functions.cb_decoder import decode_table, decode_group_subject
 
 from layers.functions.common import normalize_list
-from modules.words.data.data_retriever import get_group_subjects, get_subjects
 from modules.words.data.repository import WordRepository
 
 from modules.words.keyboards.paginators import (
@@ -35,7 +34,7 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
     s_page = int(data_parts[8])
     decoded_table_name = decode_table(table_name)
     if type_of_pagination == "gs":
-        groups_of_subject = await repo.get_group_subjects(decoded_table_name)
+        groups_of_subject = await repo.get_distinct_group_subjects(decoded_table_name)
         groups_of_subject = normalize_list(groups_of_subject)
         # Обрабатываем "prev" и "next"
         if action == "prev":
@@ -55,7 +54,7 @@ async def handle_pagination(call: CallbackQuery, state: FSMContext):
         except IndexError:
             raise IndexError("Не передано назву теми")
 
-        subjects: list = await repo.get_subjects(decoded_table_name, decoded_group_subject)
+        subjects: list = await repo.get_distinct_subjects(decoded_table_name, decoded_group_subject)
         subjects: list = normalize_list(subjects)
         # Обрабатываем "prev" и "next"
         if action == "prev":

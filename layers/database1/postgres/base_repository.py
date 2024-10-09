@@ -51,7 +51,6 @@ class ReadRepository(Repository):
         :param group: Колонка для группировки (если нужно)
         :return: Объект SQL-запроса Select
         """
-        # Убедимся, что в запросе есть хотя бы одна колонка
         query = select(*columns)
 
         if group is not None:

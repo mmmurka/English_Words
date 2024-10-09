@@ -101,7 +101,7 @@ async def words_fdata(callback: CallbackQuery, state: FSMContext):
     table_name = callback.data.split(":")[1]
     group_subject = callback.data.split(":")[2]
     subject = callback.data.split(":")[3]
-    words, definitions = await repo.get_words(
+    words, definitions = await repo.get_words_and_definitions(
         decode_table(table_name),
         decode_group_subject(group_subject),
         decode_subject(subject),
