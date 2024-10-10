@@ -2,7 +2,6 @@ import asyncio
 import pytest
 from unittest.mock import AsyncMock
 from sqlalchemy.ext.asyncio import AsyncSession
-from layers.database.controller import database_module as db
 
 
 # Фикстура для mock callback
