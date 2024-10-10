@@ -3,8 +3,8 @@ from aiogram.types import Message
 from aiogram.filters import CommandStart
 
 from modules.words.keyboards.builders import greeting_kb
-from layers.database1.postgres.crud.user_repository import PostgresUserRepository
-from layers.database1.postgres.controller.database import DBManager
+from layers.database.postgres.crud.user_repository import PostgresUserRepository
+from layers.database.postgres.controller.database import DBManager
 
 
 router = Router()

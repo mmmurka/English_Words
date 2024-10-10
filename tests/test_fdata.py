@@ -6,7 +6,6 @@ from modules.words.callbacks.f_data import (
     send_bot_info, developers, button_back, word_tables,
     group_subject_fdata, subjects_fdata, words_fdata
 )
-from modules.words.data.data_retriever import get_words
 from modules.words.data.repository import WordRepository
 from modules.words.keyboards import inline, builders
 from modules.words.keyboards.paginators import (
@@ -15,6 +14,7 @@ from modules.words.keyboards.paginators import (
 from postgres.controller.database import DBManager
 
 repo = WordRepository(DBManager().getSession)
+
 
 # Вспомогательная функция для проверки вызовов callback.message.edit_text
 def assert_edit_text_called_with(callback, expected_text, reply_markup):

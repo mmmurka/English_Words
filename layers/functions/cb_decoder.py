@@ -1,6 +1,6 @@
 import json
 
-with open('layers/database/data/mapping.json') as f:
+with open('layers/database/postgres/data/mapping.json') as f:
     mapping = json.load(f)
 
 

@@ -3,7 +3,7 @@ from typing import Type
 
 from sqlalchemy.exc import SQLAlchemyError
 
-from layers.database.models import DynamicTable
+from layers.database.postgres.models import DynamicTable
 from postgres.crud.repository import ReadRepository
 
 _dynamic_class_cache = {}
@@ -80,4 +80,3 @@ class WordRepository(ReadRepository):
         definitions = await self.execute_query(definition_query)
 
         return words, definitions
-

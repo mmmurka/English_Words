@@ -11,6 +11,7 @@ from postgres.controller.database import DBManager
 
 repo = WordRepository(DBManager().getSession)
 
+
 class Pagination(CallbackData, prefix="pag"):
     action: str
     page: int

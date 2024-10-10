@@ -8,7 +8,6 @@ from layers.functions.cb_decoder import (
     decode_subject,
 )
 from layers.functions.common import shuffle_words
-from modules.words.data.data_retriever import get_words
 from modules.words.data.repository import WordRepository
 from modules.words.keyboards.paginators import (
     create_group_subject_paginator,
