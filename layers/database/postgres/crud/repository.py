@@ -1,8 +1,8 @@
 from typing import Type
 
 
-from postgres.base_repository import ReadRepository
-from postgres.models import DynamicTable
+from layers.database.postgres.base_repository import ReadRepository
+from layers.database.postgres.models import DynamicTable
 
 
 class CRUDPostgresRepository(ReadRepository):

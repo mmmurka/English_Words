@@ -3,7 +3,7 @@ from typing import Callable, Coroutine, Any
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing_extensions import TypeVar
 
-from postgres.protocols.abstract_repository import IRepository
+from layers.database.postgres.protocols.abstract_repository import IRepository
 
 SessionFactory = TypeVar('SessionFactory', bound=Callable[[], Coroutine[Any, Any, AsyncSession]])  #  session_factory - це callable, який повертає сесію
 

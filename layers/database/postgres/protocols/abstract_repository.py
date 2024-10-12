@@ -1,5 +1,5 @@
 from __future__ import annotations
-from postgres.protocols.async_session import TSession
+from layers.database.postgres.protocols.async_session import TSession
 from abc import ABC, abstractmethod
 from typing import Generic
 

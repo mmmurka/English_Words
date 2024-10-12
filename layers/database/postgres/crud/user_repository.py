@@ -2,9 +2,9 @@ from sqlalchemy.future import select
 from sqlalchemy.exc import SQLAlchemyError
 import logging
 from layers.database.postgres.models import User
-from postgres.crud.repository import CRUDPostgresRepository
+from layers.database.postgres.crud.repository import CRUDPostgresRepository
 
-from postgres.sql.repository import SessionFactory
+from layers.database.postgres.sql.repository import SessionFactory
 
 logging.basicConfig(level=logging.INFO)
 

@@ -3,17 +3,15 @@ from aiogram.types import Message
 from aiogram.filters import CommandStart
 
 from modules.words.keyboards.builders import greeting_kb
-from layers.database.postgres.crud.user_repository import PostgresUserRepository
-from layers.database.postgres.controller.database import DBManager
-
+from postgres.crud.user_repository import PostgresUserRepository
+from postgres.controller.database import DBManager
 
 router = Router()
 db_manager = DBManager()
-user_repository = PostgresUserRepository(db_manager.getSession)
 
 
 @router.message(CommandStart())
-async def start(message: Message):
+async def start(message: Message, user_repository: PostgresUserRepository = PostgresUserRepository(db_manager.getSession)):
     tg_user_id: int = message.from_user.id
     name: str = message.from_user.first_name
     username: str = message.from_user.username

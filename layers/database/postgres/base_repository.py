@@ -4,7 +4,7 @@ from typing import Any, Optional, Callable, Sequence
 
 from sqlalchemy import select
 
-from postgres.sql.repository import SqlAlchemyRepository
+from layers.database.postgres.sql.repository import SqlAlchemyRepository
 
 
 class Repository(SqlAlchemyRepository):
