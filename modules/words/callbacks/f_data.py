@@ -8,7 +8,7 @@ from layers.functions.cb_decoder import (
     decode_subject,
 )
 from layers.functions.common import shuffle_words
-from modules.words.data.data_retriever import get_words
+from modules.words.data.repository import WordRepository
 from modules.words.keyboards.paginators import (
     create_group_subject_paginator,
     create_subject_paginator,
@@ -16,7 +16,9 @@ from modules.words.keyboards.paginators import (
 )
 
 from modules.words.keyboards import inline, builders
+from postgres.controller.database import DBManager
 
+repo = WordRepository(DBManager().getSession)
 router = Router()
 
 
@@ -47,11 +49,6 @@ async def button_back(callback: CallbackQuery, state: FSMContext):
         f"⬇️Обери необхідний пункт нижче⬇️\n",
         reply_markup=builders.greeting_kb(),
     )
-
-
-# @router.callback_query(F.data == "profile")
-# async def profile(callback: CallbackQuery) -> None:
-#     await callback.message.edit_text("Ваш профіль", reply_markup=inline.profile_kb)
 
 
 @router.callback_query(F.data == "word_tables")
@@ -103,7 +100,7 @@ async def words_fdata(callback: CallbackQuery, state: FSMContext):
     table_name = callback.data.split(":")[1]
     group_subject = callback.data.split(":")[2]
     subject = callback.data.split(":")[3]
-    words, definitions = await get_words(
+    words, definitions = await repo.get_words_and_definitions(
         decode_table(table_name),
         decode_group_subject(group_subject),
         decode_subject(subject),

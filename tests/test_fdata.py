@@ -6,11 +6,14 @@ from modules.words.callbacks.f_data import (
     send_bot_info, developers, button_back, word_tables,
     group_subject_fdata, subjects_fdata, words_fdata
 )
-from modules.words.data.data_retriever import get_words
+from modules.words.data.repository import WordRepository
 from modules.words.keyboards import inline, builders
 from modules.words.keyboards.paginators import (
     create_group_subject_paginator, create_subject_paginator, create_word_paginator
 )
+from postgres.controller.database import DBManager
+
+repo = WordRepository(DBManager().getSession)
 
 
 # Вспомогательная функция для проверки вызовов callback.message.edit_text
@@ -95,7 +98,7 @@ async def test_words_fdata(callback, state):
 
     await words_fdata(callback, state)
 
-    words, definitions = await get_words(
+    words, definitions = await repo.get_words_and_definitions(
         decode_table(encoded_table),
         decode_group_subject(encoded_group_subject),
         decode_subject(encoded_subject)
