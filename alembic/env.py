@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from layers.database.models import Base
+from layers.database.postgres.models import Base
 
 load_dotenv()
 
