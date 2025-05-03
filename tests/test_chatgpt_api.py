@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import AsyncMock, patch
-from modules.chat_gpt.chat_api import ChatGPT
+from src.modules.chat_gpt.chat_api import ChatGPT
 
 
 @pytest.mark.asyncio

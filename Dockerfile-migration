@@ -5,9 +5,9 @@ FROM python:3.12
 WORKDIR /app
 
 # Копируем только файлы, необходимые для миграции
-COPY layers/database/controller/database_module.py ./data/
-COPY layers/database/migration/database_words_migration.py ./data/
-COPY layers/database/data/words_list.json ./data/
+COPY src/layers/database/controller/database_module.py ./data/
+COPY src/layers/database/migration/database_words_migration.py ./data/
+COPY src/layers/database/data/words_list.json ./data/
 COPY requirements.txt ./
 
 # Установка зависимостей

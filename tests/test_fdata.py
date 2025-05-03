@@ -1,17 +1,17 @@
 import pytest
-from layers.functions.common import shuffle_words
-from layers.functions.cb_decoder import decode_table, decode_group_subject, decode_subject
-from layers.functions.cb_encoder import encode_table, encode_group_subject, encode_subject
-from modules.words.callbacks.f_data import (
+from common import shuffle_words
+from cb_decoder import decode_table, decode_group_subject, decode_subject
+from cb_encoder import encode_table, encode_group_subject, encode_subject
+from src.modules.words.callbacks.f_data import (
     send_bot_info, developers, button_back, word_tables,
     group_subject_fdata, subjects_fdata, words_fdata
 )
-from modules.words.data.repository import WordRepository
-from modules.words.keyboards import inline, builders
-from modules.words.keyboards.paginators import (
+from src.modules.words.data.repository import WordRepository
+from src.modules.words.keyboards import builders, inline
+from src.modules.words.keyboards.paginators import (
     create_group_subject_paginator, create_subject_paginator, create_word_paginator
 )
-from postgres.controller.database import DBManager
+from postgres import DBManager
 
 repo = WordRepository(DBManager().getSession)
 

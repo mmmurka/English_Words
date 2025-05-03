@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from layers.translate_api.translateAPI import trans_text
+from translateAPI import trans_text
 
 
 @pytest.mark.asyncio
@@ -67,5 +67,3 @@ async def test_trans_text_empty_text():
         mock_translator_instance.translate.assert_called_once_with(
             text="", src='en', dest='uk'
         )
-
-

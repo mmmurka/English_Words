@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import AsyncMock
 from aiogram import types
-from modules.words.handlers.user_commands import start
-from modules.words.keyboards.builders import greeting_kb
+from src.modules.words.handlers.user_commands import start
+from src.modules.words.keyboards.builders import greeting_kb
 
 
 @pytest.fixture
