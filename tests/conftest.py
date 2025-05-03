@@ -1,8 +1,8 @@
 import asyncio
 import pytest
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock
 from sqlalchemy.ext.asyncio import AsyncSession
-from layers.database.postgres.crud.user_repository import PostgresUserRepository
+from postgres.crud import PostgresUserRepository
 
 
 # Фікстура для mock callback
